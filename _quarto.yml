@@ -1,0 +1,29 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - Quarto/*/*.qmd 
+    - Quarto/*.qmd
+
+website:
+  title: "(Dis)Aggregation Dynamics"
+  sidebar:
+    contents: auto
+  
+format: 
+  html:
+    html-math-method: mathjax
+    fig-responsive: true
+    toc: true
+    toc-location: left
+    theme: cosmo
+    page-layout: full
+  ipynb:
+    wrap: none
+execute: 
+  cache: true
+  python-path: src
+
+editor:
+    render-on-save: true
+bibliography: /home/fitsl/library/zotero/fjk_library.bib

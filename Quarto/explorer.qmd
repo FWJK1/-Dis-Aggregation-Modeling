@@ -1,0 +1,46 @@
+---
+title: "Heatmap Explorer"
+author: Fitz Koch
+format:
+  html:
+    page-layout: full
+    theme: cosmo
+    embed-resources: false
+---
+
+
+```{python}
+import sys, os
+from pathlib import Path
+
+_project_root = Path.cwd()
+while not (_project_root / "src").exists():
+    _project_root = _project_root.parent
+os.chdir(_project_root)
+print(os.getcwd())
+```
+
+
+Pick a monomer condition and a pair of aggregation / fragmentation kernels to view the corresponding heatplot grid. 
+
+```{ojs}
+//| echo: false
+
+conditions = ["All Monomer", "Di_Monomer", "First 10"]
+kernels    = ["chipping_1", "chipping_5", "constant", "dunbar", "product", "r_prod", "sum"]
+
+viewof condition = Inputs.select(conditions, {label: "Condition", value: "All Monomer"})
+viewof agg       = Inputs.select(kernels,    {label: "Aggregation kernel",   value: "constant"})
+viewof frg       = Inputs.select(kernels,    {label: "Fragmentation kernel", value: "constant"})
+
+path = `/figs/heatplots/HEATPLOT__${condition}-${agg}-${frg}-100.png`
+
+html`<figure style="margin:1em 0;">
+       <img src="${path}" alt="${path}"
+            style="max-width:100%; border:1px solid #ddd; border-radius:4px;"
+            onerror="this.replaceWith(Object.assign(document.createElement('div'),{textContent:'No figure found at: ${path}',style:'padding:1em;color:#a00;border:1px dashed #a00;border-radius:4px;'}))">
+       <figcaption style="font-family:monospace; font-size:0.85em; color:#666; margin-top:0.5em;">
+         ${path}
+       </figcaption>
+     </figure>`
+```

@@ -1,0 +1,143 @@
+\documentclass{beamer}
+\usetheme{Madrid}  % or Berlin, AnnArbor, etc.
+\usecolortheme{crane}
+\usepackage{booktabs} % better tables
+
+
+\usepackage{colortbl}
+\definecolor{chip}{RGB}{255, 220, 180}
+\definecolor{sum}{RGB}{180, 220, 255}
+\definecolor{prod}{RGB}{180, 255, 200}
+\definecolor{sbc}{RGB}{240, 180, 255}
+
+\title{Expansion of Aggregation Dynamics with Master Equations}
+\author{Fitz Koch}
+\date{\today}
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{Purpose}
+\begin{frame}{Purpose}
+    \begin{itemize}
+        \item Key Question: How do we avoid gelation in aggregation dynamics with the \textit{least costly} regulatory interference?
+        \item Imagine corporate consolidation, or anywhere else where things tend to get big and we don't want them to. How do we prevent an entity from getting \textit{overwhelmingly} big, ala the giant component, with the \textit{least} possible expenditure of effort?
+        \item Cost:  \textbf{number of interventions}, \textbf{size of interventions}
+    \end{itemize}
+\end{frame}
+
+\section{Setup}
+\begin{frame}{Aggregation}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            Aggregation is generally the transition:
+            $$
+                A_{i} + A_{j} \xrightarrow[]{K_{ij}} A_{i+j}
+            $$
+            Yields master equation:
+            \begin{align*}
+                \frac{\mathrm{d} c_{k}}{\mathrm{d} t }
+                 & = \frac{1}{2} \sum_{i+j=k} K_{ij} c_{i} c_{j} - c_{k} \sum_{i \geq  1} K_{ik}c_{i}\,                            \\
+                 & = \frac{1}{2} \sum_{i, j \leq  1} K_{ij} c_{i} c_{j} \Big[\delta_{i+j, k} - \delta_{i, k} - \delta_{j, k} \Big]
+            \end{align*}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            Definitions:
+            \begin{itemize}
+                \item $A$ is a cluster
+                \item $i$ and $j$ are masses
+                \item $K_{ij}$ is the rate of aggregation between clusters of mass $i$ and mass $j$ into a clusters of mass $i +j$
+                \item $K$, then, is an infinite symmetric matrix $K_{ij}=K_{ji}$
+                \item $\delta$ is the Kronecker Delta
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Fragmentation}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            Fragmentation is generally the transition:
+            $$
+                A_{i+j}  \xrightarrow[]{F_{ij}} A_{i} + A_{j}
+            $$
+            Yields master equation:
+            \begin{align*}
+                \frac{\mathrm{d} c_{k}}{\mathrm{d} t } = \sum _{j \geq  1} F_{kj}c_{j+k} - \frac{1}{2} \sum _{i+j=k}F_{ij}
+            \end{align*}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            Definitions:
+            \begin{itemize}
+                \item $A$ is a cluster
+                \item $i$ and $j$ are masses
+                \item $F_{ij}$ is the rate of fragmentation of a cluster of size $i+j$ into a cluster of size $i$ and another of size $j$
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}{Combined Master Equations}
+    Put together, we have the combined master equation:
+    $$
+        \frac{\mathrm{d} c_{k}}{\mathrm{d} t }  = \frac{1}{2} \sum _{i+j=k} K_{ij}c_{i}c_{j} - c_{k}\sum _{j \geq  1}K_{jk}c_{j} + \sum _{j\geq  1} F_{kj} c_{j+k} - \frac{1}{2} c_{k} \sum _{i+j=k}F_{ij}
+    $$
+    With a competition between the aggregation kernel $ K $  and the fragmentation kernel $ F $.
+
+    We can now be more specific about our two definitions of the `cost' of fragmentation. Let $ l_i $, the cost per intervention, be the number of times that the aggregation term $ F $  applies. Let $ l_s $ instead be the sum of $ \min(i, j) $ over all the timesteps $ F $ is applied.
+\end{frame}
+
+\begin{frame}{Choosing Aggregation Kernel}
+    \small
+    $$
+        \frac{\mathrm{d} c_{k}}{\mathrm{d} t} = \frac{1}{2} \sum_{i+j=k} K_{ij}c_{i}c_{j} - c_{k}\sum_{j \geq 1}K_{jk}c_{j} + \sum_{j\geq 1} F_{kj} c_{j+k} - \frac{1}{2} c_{k} \sum_{i+j=k}F_{ij}
+    $$
+    \normalsize
+    Based on polymerization, parameterize aggregation on number of bond points $ f $ :
+    $$
+        K_{ij} = (f-2)^{2}ij +2(f-2)(i+j) + 4
+    $$
+    \begin{itemize}
+        \item Dunbar's number: $ f=152 \implies K_{ij} = \alpha(150^2ij + 300(i+j) + 4)$
+        \item Proposed \textit{homo corporatum} number: $ f \to \infty \implies K_{ij}  \approx \alpha(ij) $
+        \item Note: $ K_{ij} = ij $ is the same as percolation // erdos-renyi graph.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Choosing Fragmentation Kernel }
+    \small
+    $$
+        \frac{\mathrm{d} c_{k}}{\mathrm{d} t} = \frac{1}{2} \sum_{i+j=k} K_{ij}c_{i}c_{j} - c_{k}\sum_{j \geq 1}K_{jk}c_{j} + \sum_{j\geq 1} F_{kj} c_{j+k} - \frac{1}{2} c_{k} \sum_{i+j=k}F_{ij}
+    $$
+    \normalsize
+
+    Parameterized by $\gamma$, a few different models:
+
+    \vspace{0.5em}
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Name}                        & \textbf{Equation}                                               \\
+        \midrule
+        \rowcolor{chip}  Chipping Model      & $F_{ij} = \gamma_{0} + \gamma_{1}(\delta_{i,1} + \delta_{j,1})$ \\
+        \rowcolor{sum}   Sum Size            & $F_{ij} = \gamma(i + j)$                                        \\
+        \rowcolor{prod}  Product Splitting   & $F_{ij} = \gamma(ij)$                                           \\
+        \rowcolor{sbc}   Size Based Chipping & $F_{ij} = \gamma(j\delta_{i,1} + i\delta_{j,1})$                \\
+        \bottomrule
+    \end{tabular}
+    \vspace{0.5em}
+
+    Connect back to goal: how well does each prevent gelation? How much does the intervention of each cost?
+
+\end{frame}
+
+\section{Simulation}
+
+\end{document}

@@ -1,0 +1,13 @@
+*.ruff*
+*.jupyter*
+*.html*
+*figure-html*
+*scratch*
+*_freeze/
+*libs*
+*ipynb*
+data/per_task
+/.quarto/
+**/*.quarto_ipynb
+presentation/latex_build
+*pycache*
