@@ -2,45 +2,48 @@ This is BibTeX, Version 0.99d (TeX Live 2023)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
 The style file: naturemag-doi.bst
-Database file #1: sample.bib
-You've used 1 entry,
+Database file #1: /home/fitsl/library/zotero/fjk_library.bib
+Warning--missing publisher in zotero-item-4381
+Warning--empty year in zotero-item-4381
+You've used 2 entries,
             2380 wiz_defined-function locations,
-            998 strings with 9123 characters,
-and the built_in function-call counts, 422 in all, are:
-= -- 28
-> -- 8
+            999 strings with 9230 characters,
+and the built_in function-call counts, 558 in all, are:
+= -- 27
+> -- 16
 < -- 0
-+ -- 4
-- -- 2
-* -- 54
-:= -- 52
-add.period$ -- 3
-call.type$ -- 1
++ -- 8
+- -- 4
+* -- 61
+:= -- 61
+add.period$ -- 4
+call.type$ -- 2
 change.case$ -- 1
 chr.to.int$ -- 0
-cite$ -- 1
-duplicate$ -- 34
-empty$ -- 37
-format.name$ -- 3
-if$ -- 79
+cite$ -- 4
+duplicate$ -- 46
+empty$ -- 61
+format.name$ -- 5
+if$ -- 112
 int.to.chr$ -- 0
-int.to.str$ -- 1
-missing$ -- 8
-newline$ -- 15
-num.names$ -- 1
-pop$ -- 4
+int.to.str$ -- 2
+missing$ -- 14
+newline$ -- 18
+num.names$ -- 2
+pop$ -- 20
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 5
+skip$ -- 15
 stack$ -- 0
-substring$ -- 21
-swap$ -- 34
+substring$ -- 0
+swap$ -- 42
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 0
+warning$ -- 2
 while$ -- 2
-width$ -- 2
-write$ -- 21
+width$ -- 3
+write$ -- 25
+(There were 2 warnings)

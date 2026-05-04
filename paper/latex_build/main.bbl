@@ -7,9 +7,12 @@
 \providecommand{\bibinfo}[2]{#2}
 \providecommand{\eprint}[2][]{\url{#2}}
 
-\bibitem{Figueredo:2009dg}
-\bibinfo{author}{Figueredo, A.~J.} \& \bibinfo{author}{Wolf, P. S.~A.}
-\newblock \bibinfo{journal}{\bibinfo{title}{Assortative pairing and life history strategy -- a cross-cultural study}}.
-\newblock {\emph{\JournalTitle{Human Nature}}} \textbf{\bibinfo{volume}{20}}, \bibinfo{pages}{317--330}, \doiprefix\url{https://doi.org/10.1007/s12110-009-9068-2} (\bibinfo{year}{2009}).
+\bibitem{zotero-item-4381}
+\bibinfo{author}{Yeats, W.}
+\newblock \emph{\bibinfo{title}{The {{Second Coming}}}}.
+
+\bibitem{krapivskyKineticViewStatistical2010}
+\bibinfo{author}{Krapivsky, P.~L.}, \bibinfo{author}{Redner, S.} \& \bibinfo{author}{{Ben-Naim}, E.}
+\newblock \emph{\bibinfo{title}{A {{Kinetic View}} of {{Statistical Physics}}}} (\bibinfo{publisher}{Cambridge University Press}, \bibinfo{year}{2010}), \bibinfo{edition}{1} edn.
 
 \end{thebibliography}

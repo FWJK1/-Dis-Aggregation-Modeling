@@ -10,6 +10,7 @@ format:
 
 
 ```{python}
+# | echo: false
 import sys, os
 from pathlib import Path
 
@@ -17,7 +18,6 @@ _project_root = Path.cwd()
 while not (_project_root / "src").exists():
     _project_root = _project_root.parent
 os.chdir(_project_root)
-print(os.getcwd())
 ```
 
 

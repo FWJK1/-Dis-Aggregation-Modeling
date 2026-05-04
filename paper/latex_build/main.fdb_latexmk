@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex latex_build/main"] 1777854044.03012 "latex_build/main.aux" "latex_build/main.bbl" "latex_build/main" 1777855743.84892 0
+["bibtex latex_build/main"] 1777857115.93578 "latex_build/main.aux" "latex_build/main.bbl" "latex_build/main" 1777857116.02671 0
   "./naturemag-doi.bst" 1777854025.21232 36153 a59af0557a0f0c0e857533e984f737bb ""
-  "./sample.bib" 1777854025.21505 604 dd7681d9cb62086108bc9b881e2ad28d ""
-  "latex_build/main.aux" 1777855743.61548 2622 4cc5600bafdca57aea6dc83566b7f208 "pdflatex"
+  "/home/fitsl/library/zotero/fjk_library.bib" 1777857115.73459 331001 462df2180363ecfb3032ba57ada88d8e ""
+  "latex_build/main.aux" 1777857097.82479 2754 3436e80282878f0000b4289be19a659e "pdflatex"
   (generated)
   "latex_build/main.bbl"
   "latex_build/main.blg"
   (rewritten before read)
-["pdflatex"] 1777855742.95906 "/home/fitsl/hw/Aggregation_Project_MOCS_II/paper/main.tex" "main.pdf" "main" 1777855743.84917 0
-  "/home/fitsl/hw/Aggregation_Project_MOCS_II/paper/main.tex" 1777855742.70165 6289 e4db5d5000113cd042d05b021b582218 ""
+["pdflatex"] 1777857097.16809 "/home/fitsl/hw/Aggregation_Project_MOCS_II/paper/main.tex" "main.pdf" "main" 1777857116.02677 0
+  "/home/fitsl/hw/Aggregation_Project_MOCS_II/paper/main.tex" 1777857112.22834 6461 96055026bd79c79a699b3d9b7db64d2a ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1775001600 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm" 1136768653 1292 bd42be2f344128bff6d35d98474adfe3 ""
@@ -178,10 +178,10 @@
   "jabbrv-ltwa-all.ldf" 1777854025.19514 49107 ef89484545be005458b7162f37634c99 ""
   "jabbrv-ltwa-en.ldf" 1777854025.19729 268657 c239d07b7cc89e14f920c5fc8ed8d12e ""
   "jabbrv.sty" 1777854025.19274 15480 2106da179daf9d5a102407956ba23e0c ""
-  "latex_build/main.aux" 1777855743.61548 2622 4cc5600bafdca57aea6dc83566b7f208 "pdflatex"
-  "latex_build/main.bbl" 1777854044.09595 762 6391ab3fa145cae6e28590510a32170d "bibtex latex_build/main"
-  "latex_build/main.out" 1777855743.61548 567 63d59a209a9e9affb00c9d83da76146f "pdflatex"
-  "main.tex" 1777855742.70165 6289 e4db5d5000113cd042d05b021b582218 ""
+  "latex_build/main.aux" 1777857097.82479 2754 3436e80282878f0000b4289be19a659e "pdflatex"
+  "latex_build/main.bbl" 1777857116.01159 797 90ef942d745a42e5f4bb35d651e89f07 "bibtex latex_build/main"
+  "latex_build/main.out" 1777857097.82579 567 63d59a209a9e9affb00c9d83da76146f "pdflatex"
+  "main.tex" 1777857112.22834 6461 96055026bd79c79a699b3d9b7db64d2a ""
   "model-card.tex" 1777854025.20442 1286 f4694dc07159f586ecb95b15f5f911e4 ""
   "stream.jpg" 1777854025.21709 379752 0d2b78190bb8e3a8b437b513aa4c6aaa ""
   "wlscirep.cls" 1777854025.21928 5824 2bca8e85f20d8d313a7747a78c480ad7 ""
