@@ -1,0 +1,143 @@
+\documentclass[fleqn,10pt]{wlscirep}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tabularx}
+\usepackage{array}
+\title{Steady State Cost in Competing Aggregation-Fragmentation Dynamics}
+
+\author[1,*]{Fitzwilliam James Keenan-Koch}
+\affil[1]{Vermont Complex Systems Institute, University of Vermont, Burlington, VT, USA}
+\affil[*]{fkeenank@uvm.edu}
+
+\begin{abstract}
+Aggregation and fragmentation among polymers has long been an area of active research and utility in physical chemistry. 
+Drawing inspiration from the dynamics of social formulation, we make a preliminary effort at optimization among various potential fragmentation kernels to regulate the probability of gelation. 
+This work has relevance for any work formalizing the formulation, dissolving, and splitting of groups of abstract individuals.
+Social groups are of particular interest, from musical subcultures to the regulation of corporate consolidation. 
+\end{abstract}
+\begin{document}
+
+\flushbottom
+\maketitle
+\thispagestyle{empty}
+
+
+%%% Introduction section %%%%
+\section{Introduction}
+Things fall apart, Keats wrote.
+Of course, they also come together.
+
+Whether \textit{homo economicus} or \textit{homo sociologicus}, the coordinating and organizational capabilities of the human race are broadly agreed upon as one of our key defining features.
+W
+
+We attempt
+
+The Introduction section can use referenced texts, for example\cite{Figueredo:2009dg}, which calls references listed as bibitems in the \texttt{sample.bib} bibliography file.
+The introduction should expand on the background of the work (some overlap with the Abstract is acceptable) and explain your interests in the problem.
+The introduction should not include subheadings.
+
+
+Aggregation is generally the transition
+$$
+    A_{i} + A_{j} \xrightarrow[]{K_{ij}} A_{i+j}
+$$
+where:
+- $A$ is a cluster
+- $i$ and $j$ are masses
+- $K_{ij}$ is the rate of aggregation between clusters of mass $i$ and mass $j$ into a clusters of mass $i +j$
+- $K$, then, is an infinite symmetric matrix $K_{i,j}=K_{j, i}$
+
+The master equations for which are:
+\begin{align}
+    \frac{\mathrm{d} c_{k}}{\mathrm{d} t } & = \frac{1}{2} \sum_{i+j=k} K_{ij} c_{i} c_{j} - c_{k} \sum_{i \geq  1} K_{ik}c_{i}                              \\
+                                           & = \frac{1}{2} \sum_{i, j \leq  1} K_{ij} c_{i} c_{j} \Big[\delta_{i+j, k} - \delta_{i, k} - \delta_{j, k} \Big]
+\end{align}
+where $\delta$ is the Kronecker delta.
+
+
+We propose additional **disaggregation** based on the general idea
+$$
+    A_{k} \xrightarrow[]{L_{ki}} A_{i} + A_{k-i}
+$$
+where $L_{ki}$ is the rate of disaggregation from clusters of mass $k$ to clusters of mass $i, k-i$ such that $L$ is **not** a symmetric matrix, as $L_{31}$ is potentially valued and $L_{13}$ is certainly $0$.
+And with master equations:
+$$
+    \frac{\mathrm{d} c_{k}}{\mathrm{d} t } = \sum_{i \geq  1} [L_{ik}c_{i}(1 + \delta_{i, 2k}) - L_{ki}c_{i}]
+$$
+where the Kronecker delta allows us to double count when the cluster splits into two equal clusters of size $k$.
+
+
+
+%%% Methods section %%%%
+\section{Methods: A model of something}
+
+Up to three levels of \textbf{subheadings} are permitted. Subheadings should not be numbered (this is done by using an asterisk after any \texttt{subsection} or \texttt{subsubsection} command.
+
+\subsection*{The problem}
+The first section should be a clear definition of the problem statement. That is, what is the system to be modelled and (if applicable) what specific research questions are you after.
+
+This is example of more text under a subsection. Bulleted lists may be used where appropriate, e.g.
+\begin{itemize}
+    \item First item
+    \item Second item
+\end{itemize}
+
+\subsection*{The model}
+
+A clear model, specifying the modeling approaches, assumptions, parameters, objectives (what it should be used for or not). Consider using a model card once we revisit the concept in class.
+
+%Comment out if the model card is not useful
+\input{model-card}
+
+\subsubsection*{Third-level section}
+
+Topical subheadings are allowed so feel free to change the \texttt{subsection} or \texttt{subsubsection} titles. This is an example of a \texttt{subsubsection}.
+
+%%% Results section %%%%
+\section{Results\label{sec:results}}
+
+The results can contain subheadings as desired and can discuss the results directly.
+
+% Example of a figure
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\linewidth]{stream}
+    \caption{Legend (350 words max). Example legend text for an example figure. Figures should be in pdf format unless it is a photo or archival image not in vector graphics, as is the case here (in which case jpg and png are acceptable).}
+    \label{fig:stream}
+\end{figure}
+
+% Example of a table
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{|l|l|l|}
+        \hline
+        Condition & n  & p    \\
+        \hline
+        A         & 5  & 0.1  \\
+        \hline
+        B         & 10 & 0.01 \\
+        \hline
+    \end{tabular}
+    \caption{\label{tab:example}Legend (350 words max). Example legend text for an example table.}
+\end{table}
+
+%%% Discussion section %%%%
+\section{Discussion}
+
+The Discussion should be succinct. It typically involve any big picture discussions not covered in Sec.~\ref{sec:results}, i.e., the Results section. This was an example of a section reference using the \texttt{label} and \texttt{ref} commands. Figures and tables can also be referenced in LaTeX using the \texttt{label} and \texttt{ref} commands, e.g. Fig. \ref{fig:stream} and Tab. \ref{tab:example}.
+
+This discussion can therefore mention scientific consequences of the results, ideas for future work, stress approximations or simplifications that limit the applicability of the model, or discuss things you tried that did not work. The Discussion section must not contain subheadings.
+
+\bibliography{sample}
+
+\section*{Acknowledgements}
+
+Acknowledgements should be brief, and should not include any effusive comments. Colleagues from the class (or beyond) who helped should be acknowledged here. Funding information, if any, may also be acknowledged.
+
+\section*{Additional information}
+
+\textbf{Data availability statement:} if applicable.\\
+\textbf{Code availability statement:} mandatory.\\
+\textbf{Competing interests:} if any.
+
+\end{document}
