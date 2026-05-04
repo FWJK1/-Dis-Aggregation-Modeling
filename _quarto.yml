@@ -4,6 +4,8 @@ project:
   render:
     - Quarto/*/*.qmd 
     - Quarto/*.qmd
+  resources: 
+    - "figs/*"
 
 website:
   title: "(Dis)Aggregation Dynamics"

@@ -24,7 +24,7 @@
     "href": "Quarto/analysis.html",
     "title": "Analysis",
     "section": "",
-    "text": "import sys, os\nfrom pathlib import Path\n\n_project_root = Path.cwd()\nwhile not (_project_root / \"src\").exists():\n    _project_root = _project_root.parent\nos.chdir(_project_root)\n\n\n# library imports\nfrom itertools import product\n\n\n# package imports\nimport numpy as np\nimport pandas as pd \nimport seaborn as sns\nimport matplotlib.pyplot as plt\nfrom scipy.integrate import odeint\nfrom numba import jit\nfrom IPython.display import display, Markdown\nfrom odeintw import odeintw\nimport matplotlib.colors as mcolors\n\n\n# package global configs\nplt.style.use([\"ggplot\"])\nsave_dir = Path(\"figs/main\")\n\n\n# Define page width\nIMG_WIDTH = 6\nIMG_HEIGHT = 6",
+    "text": "import sys, os\nfrom pathlib import Path\n\n_project_root = Path.cwd()\nwhile not (_project_root / \"src\").exists():\n    _project_root = _project_root.parent\nos.chdir(_project_root)\n\n\nasdfasdf\n\n# library imports\nfrom itertools import product\n\n\n# package imports\nimport numpy as np\nimport pandas as pd \nimport seaborn as sns\nimport matplotlib.pyplot as plt\nfrom scipy.integrate import odeint\nfrom numba import jit\nfrom IPython.display import display, Markdown\nfrom odeintw import odeintw\nimport matplotlib.colors as mcolors\n\n\n# package global configs\nplt.style.use([\"ggplot\"])\nsave_dir = Path(\"figs/main\")\n\n\n# Define page width\nIMG_WIDTH = 6\nIMG_HEIGHT = 6",
     "crumbs": [
       "Initial Exploration of (Dis)Aggregation Dynamics",
       "Analysis"
