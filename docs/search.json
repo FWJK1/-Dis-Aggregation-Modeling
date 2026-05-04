@@ -1,34 +1,21 @@
 [
   {
-    "objectID": "Quarto/explorer.html",
-    "href": "Quarto/explorer.html",
-    "title": "Heatmap Explorer",
-    "section": "",
-    "text": "import sys, os\nfrom pathlib import Path\n\n_project_root = Path.cwd()\nwhile not (_project_root / \"src\").exists():\n    _project_root = _project_root.parent\nos.chdir(_project_root)\nprint(os.getcwd())\n\n/home/fitsl/hw/Aggregation_Project_MOCS_II\n\n\nPick a monomer condition and a pair of aggregation / fragmentation kernels to view the corresponding heatplot grid.\n\nconditions = [\"All Monomer\", \"Di_Monomer\", \"First 10\"]\nkernels    = [\"chipping_1\", \"chipping_5\", \"constant\", \"dunbar\", \"product\", \"r_prod\", \"sum\"]\n\nviewof condition = Inputs.select(conditions, {label: \"Condition\", value: \"All Monomer\"})\nviewof agg       = Inputs.select(kernels,    {label: \"Aggregation kernel\",   value: \"constant\"})\nviewof frg       = Inputs.select(kernels,    {label: \"Fragmentation kernel\", value: \"constant\"})\n\npath = `/figs/heatplots/HEATPLOT__${condition}-${agg}-${frg}-100.png`\n\nhtml`&lt;figure style=\"margin:1em 0;\"&gt;\n       &lt;img src=\"${path}\" alt=\"${path}\"\n            style=\"max-width:100%; border:1px solid #ddd; border-radius:4px;\"\n            onerror=\"this.replaceWith(Object.assign(document.createElement('div'),{textContent:'No figure found at: ${path}',style:'padding:1em;color:#a00;border:1px dashed #a00;border-radius:4px;'}))\"&gt;\n       &lt;figcaption style=\"font-family:monospace; font-size:0.85em; color:#666; margin-top:0.5em;\"&gt;\n         ${path}\n       &lt;/figcaption&gt;\n     &lt;/figure&gt;`",
-    "crumbs": [
-      "Quarto",
-      "Heatmap Explorer"
-    ]
-  },
-  {
-    "objectID": "Quarto/Initial_Exploration.html",
-    "href": "Quarto/Initial_Exploration.html",
+    "objectID": "Quarto/index.html",
+    "href": "Quarto/index.html",
     "title": "Initial Exploration of (Dis)Aggregation Dynamics",
     "section": "",
     "text": "import sys, os\nfrom pathlib import Path\n\n_project_root = Path.cwd()\nwhile not (_project_root / \"src\").exists():\n    _project_root = _project_root.parent\nos.chdir(_project_root)\n# library imports\nfrom itertools import product\n\n\n# package imports\nimport numpy as np\nimport pandas as pd \nimport seaborn as sns\nimport matplotlib.pyplot as plt\nfrom scipy.integrate import odeint\nfrom numba import jit\nfrom IPython.display import display, Markdown\nfrom odeintw import odeintw\nimport matplotlib.colors as mcolors\n\n\n# package global configs\nplt.style.use([\"ggplot\"])\n# Define page width\nIMG_WIDTH = 6\nIMG_HEIGHT = 6",
     "crumbs": [
-      "Quarto",
       "Initial Exploration of (Dis)Aggregation Dynamics"
     ]
   },
   {
-    "objectID": "Quarto/Initial_Exploration.html#stochastic-aggregation-aborted",
-    "href": "Quarto/Initial_Exploration.html#stochastic-aggregation-aborted",
+    "objectID": "Quarto/index.html#stochastic-aggregation-aborted",
+    "href": "Quarto/index.html#stochastic-aggregation-aborted",
     "title": "Initial Exploration of (Dis)Aggregation Dynamics",
     "section": "Stochastic Aggregation (aborted)",
     "text": "Stochastic Aggregation (aborted)\n\ndef twoD_aggregation_dot(x, t, K, N):\n    dx = 0 * x\n    concentrations = np.sum(x, axis=0)  # still just summing, though...\n    outflow_transition = np.zeros(N, N)\n    inflow_transition = np.zeros(N, N)\n    for size, count in np.ndindex(x.shape):\n        outflow_transition[size, count] = count * sum(\n            [K[size, j] * concentrations[j] for j in range(1, N)]\n        )\n        pairs = [(i, k - i) for i in range(1, k)]\n        inflow_transition[size, count] = 0.5 * sum(\n            [K[size, j] * concentrations[i] * concentrations for i, j in pairs]\n        )\n\n\ndef twoD_integrate_aggregation(kernel_rule, N, axes=None, t_length=5, t_steps=100):\n    t_vec = np.linspace(0, t_length, t_steps * (t_length +1))\n    x_0 = np.zeros((N+1, N+1), dtype=float) # shape: cluster size k, size count c, where value = probability\n    x_0[1][N] = 1  # initially all monomers\n    K = build_kernel(kernel_rule, N+1)\n    G = lambda x, t : aggregation_dot(x, t, K, N ) \n    x_path = odeintw(G, x_0, t_vec)",
     "crumbs": [
-      "Quarto",
       "Initial Exploration of (Dis)Aggregation Dynamics"
     ]
   },
@@ -39,7 +26,7 @@
     "section": "",
     "text": "import sys, os\nfrom pathlib import Path\n\n_project_root = Path.cwd()\nwhile not (_project_root / \"src\").exists():\n    _project_root = _project_root.parent\nos.chdir(_project_root)\n\n\n# library imports\nfrom itertools import product\n\n\n# package imports\nimport numpy as np\nimport pandas as pd \nimport seaborn as sns\nimport matplotlib.pyplot as plt\nfrom scipy.integrate import odeint\nfrom numba import jit\nfrom IPython.display import display, Markdown\nfrom odeintw import odeintw\nimport matplotlib.colors as mcolors\n\n\n# package global configs\nplt.style.use([\"ggplot\"])\nsave_dir = Path(\"figs/main\")\n\n\n# Define page width\nIMG_WIDTH = 6\nIMG_HEIGHT = 6",
     "crumbs": [
-      "Quarto",
+      "Initial Exploration of (Dis)Aggregation Dynamics",
       "Analysis"
     ]
   },
@@ -50,8 +37,19 @@
     "section": "scatterplots of optimizations",
     "text": "scatterplots of optimizations\n\nfor condition, df in full_df.groupby(\"init_cond\"):\n    num_plots = len(df[\"agg_kernel\"].unique())\n    ncols = 4\n    nrows = (num_plots + 1) // ncols\n\n    fig, axes = plt.subplots(\n        nrows=nrows,\n        ncols=ncols,\n        figsize=(IMG_WIDTH * ncols, IMG_HEIGHT * nrows),\n        sharey=True,\n    )\n    df[r\"$F$\"] = df[\"frg_kernel\"]\n    df[\"Aggregation Multiplier\"] = df[\"agg_multiplier\"]\n    df[\"Fragmentation Multiplier\"] = df[\"frg_multiplier\"]\n\n\n    axes = axes.flatten()\n    for i, (kernel_name, sub_df) in enumerate(df.groupby(\"agg_kernel\")):\n        ax = axes[i]\n        ax.set_xlabel(r\"$g_{0.6}$\")\n        ax.set_ylabel(r\"$\\dot{s}$\")\n        ax.set_xlim(left=-0.01)\n        ax.set_title(rf\"$K=${kernel_name}\")\n        sns.scatterplot(\n            data=sub_df,\n            y=\"s_slope\",\n            x=\"dom60\",\n            ax=ax,\n            hue=r\"$F$\",\n            size=\"Aggregation Multiplier\",\n            style=\"Fragmentation Multiplier\",\n        )\n\n    handles, labels = axes[0].get_legend_handles_labels()\n    plt.suptitle(condition)\n    plt.tight_layout()\n    plt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nkey_kernels = [\"constant\", \"sum\", \"product\", \"dunbar\"]\nnum_plots = len(key_kernels)\n\nncols = 2\nnrows = (num_plots + 1) // ncols\n\nfig, axes = plt.subplots(\n    nrows=nrows,\n    ncols=ncols,\n    figsize=(IMG_WIDTH * ncols, IMG_HEIGHT * nrows),\n    sharey=True,\n)\ndf = full_df[full_df[\"init_cond\"] == \"All Monomer\"].copy()\ndf[r\"$F$\"] = df[\"frg_kernel\"]\ndf[\"Aggregation Multiplier\"] = df[\"agg_multiplier\"]\ndf[\"Fragmentation Multiplier\"] = df[\"frg_multiplier\"]\n\n\naxes = axes.flatten()\nfor i, kernel_name in enumerate(key_kernels):\n    ax = axes[i]\n    sub_df = df[df[\"agg_kernel\"] == kernel_name]\n    sub_df = sub_df.copy()\n    sub_df[\"dom60\"] += np.random.uniform(-0.03, 0.03, len(sub_df))  ## jitter\n    ax.set_xlabel(r\"$g_{0.6}$\")\n    ax.set_ylabel(r\"$\\dot{s}$\")\n    ax.set_xlim(left=-0.01)\n    ax.set_title(rf\"$K=${kernel_name}\")\n    sns.scatterplot(\n        data=sub_df,\n        y=\"s_slope\",\n        x=\"dom60\",\n        ax=ax,\n        hue=r\"$F$\",\n        size=\"Aggregation Multiplier\",\n        sizes=(20, 200),\n        style=\"Fragmentation Multiplier\",\n        legend=i == 0,\n    )\nhandles, labels = axes[0].get_legend_handles_labels()\naxes[0].get_legend().remove()\nfig.legend(handles, labels, loc=\"lower center\", ncol=8, bbox_to_anchor=(0.5, -0.05))\nplt.subplots_adjust(bottom=0.05)  # make room\nsave_path = save_dir / \"AllMonomer_costSlope_vs_domination.png\"\nplt.savefig(save_path, bbox_inches=\"tight\")\nplt.show()",
     "crumbs": [
-      "Quarto",
+      "Initial Exploration of (Dis)Aggregation Dynamics",
       "Analysis"
+    ]
+  },
+  {
+    "objectID": "Quarto/explorer.html",
+    "href": "Quarto/explorer.html",
+    "title": "Heatmap Explorer",
+    "section": "",
+    "text": "import sys, os\nfrom pathlib import Path\n\n_project_root = Path.cwd()\nwhile not (_project_root / \"src\").exists():\n    _project_root = _project_root.parent\nos.chdir(_project_root)\nprint(os.getcwd())\n\n/home/fitsl/hw/Aggregation_Project_MOCS_II\n\n\nPick a monomer condition and a pair of aggregation / fragmentation kernels to view the corresponding heatplot grid.\n\nconditions = [\"All Monomer\", \"Di_Monomer\", \"First 10\"]\nkernels    = [\"chipping_1\", \"chipping_5\", \"constant\", \"dunbar\", \"product\", \"r_prod\", \"sum\"]\n\nviewof condition = Inputs.select(conditions, {label: \"Condition\", value: \"All Monomer\"})\nviewof agg       = Inputs.select(kernels,    {label: \"Aggregation kernel\",   value: \"constant\"})\nviewof frg       = Inputs.select(kernels,    {label: \"Fragmentation kernel\", value: \"constant\"})\n\npath = `/figs/heatplots/HEATPLOT__${condition}-${agg}-${frg}-100.png`\n\nhtml`&lt;figure style=\"margin:1em 0;\"&gt;\n       &lt;img src=\"${path}\" alt=\"${path}\"\n            style=\"max-width:100%; border:1px solid #ddd; border-radius:4px;\"\n            onerror=\"this.replaceWith(Object.assign(document.createElement('div'),{textContent:'No figure found at: ${path}',style:'padding:1em;color:#a00;border:1px dashed #a00;border-radius:4px;'}))\"&gt;\n       &lt;figcaption style=\"font-family:monospace; font-size:0.85em; color:#666; margin-top:0.5em;\"&gt;\n         ${path}\n       &lt;/figcaption&gt;\n     &lt;/figure&gt;`",
+    "crumbs": [
+      "Initial Exploration of (Dis)Aggregation Dynamics",
+      "Heatmap Explorer"
     ]
   }
 ]
