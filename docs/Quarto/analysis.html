@@ -214,7 +214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="setup" class="level1">
 <h1>Setup</h1>
-<div id="75b73455" class="cell" data-execution_count="2">
+<div id="df7e33f6" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys, os</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -223,7 +223,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    _project_root <span class="op">=</span> _project_root.parent</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>os.chdir(_project_root)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="64f943c0" class="cell" data-execution_count="3">
+<div id="92254c89" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library imports</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> itertools <span class="im">import</span> product</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -238,13 +238,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, Markdown</span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> odeintw <span class="im">import</span> odeintw</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.colors <span class="im">as</span> mcolors</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.cm <span class="im">as</span> cm</span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># package global configs</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>plt.style.use([<span class="st">"ggplot"</span>])</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>save_dir <span class="op">=</span> Path(<span class="st">"figs/main"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># package global configs</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>plt.style.use([<span class="st">"ggplot"</span>])</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>save_dir <span class="op">=</span> Path(<span class="st">"figs/main"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="89e2fe77" class="cell" data-execution_count="4">
+<div id="f7fb0448" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define page width</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>IMG_WIDTH <span class="op">=</span> <span class="dv">6</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>IMG_HEIGHT <span class="op">=</span> <span class="dv">6</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -252,10 +253,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="data-conglomerating" class="level1">
 <h1>Data Conglomerating</h1>
-<div id="eb2b1886" class="cell" data-execution_count="5">
+<div id="c3d7a16f" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dataDir <span class="op">=</span> Path(<span class="st">"data"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>taskDir <span class="op">=</span> dataDir <span class="op">/</span> <span class="st">"per_task"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>taskDir <span class="op">=</span> dataDir <span class="op">/</span> <span class="st">"per_task_broad"</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> taskDir.iterdir():</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> df <span class="kw">is</span> <span class="va">None</span>:</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> pd.read_csv(<span class="bu">file</span>, index_col<span class="op">=</span><span class="va">False</span>)</span>
@@ -271,124 +272,213 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       dtype='object')</code></pre>
 </div>
 </div>
+<p>Establish consistent visual identifiers</p>
+<div id="7577246a" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>kernels <span class="op">=</span> df[<span class="st">'agg_kernel'</span>].unique().tolist() <span class="op">+</span> df[<span class="st">'frg_kernel'</span>].unique().tolist()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>kernels <span class="op">=</span> pd.Series(kernels).unique()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>palette <span class="op">=</span> sns.color_palette(<span class="st">"deep"</span>, <span class="bu">len</span>(kernels))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>GROUP_COLORS <span class="op">=</span> {k: palette[i] <span class="cf">for</span> i, k <span class="kw">in</span> <span class="bu">enumerate</span>(kernels)}</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(kernels)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['product' 'r_prod' 'sum' 'constant' 'dunbar' 'abs' 'chipping_1'
+ 'chipping_5' 'tiered_33' 'tiered_50' 'tiered_60']</code></pre>
+</div>
+</div>
 </section>
 <section id="viz" class="level1">
 <h1>Viz</h1>
 <section id="scatterplots-of-optimizations" class="level2">
 <h2 class="anchored" data-anchor-id="scatterplots-of-optimizations">scatterplots of optimizations</h2>
-<div id="bf110b3d" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> condition, df <span class="kw">in</span> full_df.groupby(<span class="st">"init_cond"</span>):</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    num_plots <span class="op">=</span> <span class="bu">len</span>(df[<span class="st">"agg_kernel"</span>].unique())</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    ncols <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    nrows <span class="op">=</span> (num_plots <span class="op">+</span> <span class="dv">1</span>) <span class="op">//</span> ncols</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    fig, axes <span class="op">=</span> plt.subplots(</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        nrows<span class="op">=</span>nrows,</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        ncols<span class="op">=</span>ncols,</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        figsize<span class="op">=</span>(IMG_WIDTH <span class="op">*</span> ncols, IMG_HEIGHT <span class="op">*</span> nrows),</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        sharey<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    df[<span class="vs">r"</span><span class="dv">$</span><span class="vs">F</span><span class="dv">$</span><span class="vs">"</span>] <span class="op">=</span> df[<span class="st">"frg_kernel"</span>]</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"Aggregation Multiplier"</span>] <span class="op">=</span> df[<span class="st">"agg_multiplier"</span>]</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"Fragmentation Multiplier"</span>] <span class="op">=</span> df[<span class="st">"frg_multiplier"</span>]</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    axes <span class="op">=</span> axes.flatten()</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, (kernel_name, sub_df) <span class="kw">in</span> <span class="bu">enumerate</span>(df.groupby(<span class="st">"agg_kernel"</span>)):</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        ax <span class="op">=</span> axes[i]</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        ax.set_xlabel(<span class="vs">r"</span><span class="dv">$</span><span class="vs">g_{0</span><span class="dv">.</span><span class="vs">6}</span><span class="dv">$</span><span class="vs">"</span>)</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        ax.set_ylabel(<span class="vs">r"</span><span class="dv">$\d</span><span class="vs">ot{s}</span><span class="dv">$</span><span class="vs">"</span>)</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        ax.set_xlim(left<span class="op">=-</span><span class="fl">0.01</span>)</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        ax.set_title(<span class="vs">rf"</span><span class="dv">$</span><span class="vs">K=</span><span class="dv">$</span><span class="sc">{</span>kernel_name<span class="sc">}</span><span class="vs">"</span>)</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        sns.scatterplot(</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>            data<span class="op">=</span>sub_df,</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>            y<span class="op">=</span><span class="st">"s_slope"</span>,</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>            x<span class="op">=</span><span class="st">"dom60"</span>,</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>            ax<span class="op">=</span>ax,</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>            hue<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">F</span><span class="dv">$</span><span class="vs">"</span>,</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>            size<span class="op">=</span><span class="st">"Aggregation Multiplier"</span>,</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>            style<span class="op">=</span><span class="st">"Fragmentation Multiplier"</span>,</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    handles, labels <span class="op">=</span> axes[<span class="dv">0</span>].get_legend_handles_labels()</span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    plt.suptitle(condition)</span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="e083f8b8" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> condition, df <span class="kw">in</span> full_df.groupby(<span class="st">"init_cond"</span>):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    num_plots <span class="op">=</span> <span class="bu">len</span>(df[<span class="st">"agg_kernel"</span>].unique())</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    ncols <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    nrows <span class="op">=</span> (num_plots <span class="op">+</span> <span class="dv">1</span>) <span class="op">//</span> ncols</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    fig, axes <span class="op">=</span> plt.subplots(</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        nrows<span class="op">=</span>nrows,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        ncols<span class="op">=</span>ncols,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        figsize<span class="op">=</span>(IMG_WIDTH <span class="op">*</span> ncols, IMG_HEIGHT <span class="op">*</span> nrows),</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        sharey<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    df[<span class="vs">r"</span><span class="dv">$</span><span class="vs">F</span><span class="dv">$</span><span class="vs">"</span>] <span class="op">=</span> df[<span class="st">"frg_kernel"</span>]</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"Aggregation Multiplier"</span>] <span class="op">=</span> df[<span class="st">"agg_multiplier"</span>]</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"Fragmentation Multiplier"</span>] <span class="op">=</span> df[<span class="st">"frg_multiplier"</span>]</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    axes <span class="op">=</span> axes.flatten()</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, (kernel_name, sub_df) <span class="kw">in</span> <span class="bu">enumerate</span>(df.groupby(<span class="st">"agg_kernel"</span>)):</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>        ax <span class="op">=</span> axes[i]</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        ax.set_xlabel(<span class="vs">r"</span><span class="dv">$</span><span class="vs">g_{0</span><span class="dv">.</span><span class="vs">6}</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        ax.set_ylabel(<span class="vs">r"</span><span class="dv">$\d</span><span class="vs">ot{</span><span class="er">\</span><span class="vs">kappa}_s</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>        ax.set_xlim(left<span class="op">=-</span><span class="fl">0.01</span>)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>        ax.set_title(<span class="vs">rf"</span><span class="dv">$</span><span class="vs">K=</span><span class="dv">$</span><span class="sc">{</span>kernel_name<span class="sc">}</span><span class="vs">"</span>)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        sub_df[<span class="st">"dom60"</span>] <span class="op">+=</span> np.random.uniform(<span class="op">-</span><span class="fl">0.03</span>, <span class="fl">0.03</span>, <span class="bu">len</span>(sub_df))  <span class="co">## jitter</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>        sns.scatterplot(</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>            data<span class="op">=</span>sub_df,</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>            y<span class="op">=</span><span class="st">"s_slope"</span>,</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>            x<span class="op">=</span><span class="st">"dom60"</span>,</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>            ax<span class="op">=</span>ax,</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>            hue<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">F</span><span class="dv">$</span><span class="vs">"</span>,</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>            palette<span class="op">=</span>GROUP_COLORS,</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>            size<span class="op">=</span><span class="st">"Aggregation Multiplier"</span>,</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>            style<span class="op">=</span><span class="st">"Fragmentation Multiplier"</span>,</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>            legend<span class="op">=</span>i <span class="op">==</span> <span class="dv">0</span>,</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>    handles, labels <span class="op">=</span> axes[<span class="dv">0</span>].get_legend_handles_labels()</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].get_legend().remove()</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>    fig.legend(handles, labels, loc<span class="op">=</span><span class="st">"lower center"</span>, ncol<span class="op">=</span><span class="dv">8</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">0.5</span>, <span class="op">-</span><span class="fl">0.05</span>))</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>    plt.subplots_adjust(bottom<span class="op">=</span><span class="fl">0.05</span>)  <span class="co"># make room</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>    plt.suptitle(condition)</span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>    save_path <span class="op">=</span> save_dir <span class="op">/</span> <span class="ss">f"</span><span class="sc">{</span>condition<span class="sc">}</span><span class="ss">_all.pdf"</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>    plt.savefig(save_path, bbox_inches<span class="op">=</span><span class="st">"tight"</span>, backend<span class="op">=</span><span class="st">"pdf"</span>)</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="analysis_files/figure-html/cell-6-output-1.png" width="2293" height="1132" class="figure-img"></p>
+<p><img src="analysis_files/figure-html/cell-7-output-1.png" width="1717" height="1199" class="figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="analysis_files/figure-html/cell-6-output-2.png" width="2293" height="1132" class="figure-img"></p>
+<p><img src="analysis_files/figure-html/cell-7-output-2.png" width="1717" height="1199" class="figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="analysis_files/figure-html/cell-6-output-3.png" width="2293" height="1132" class="figure-img"></p>
+<p><img src="analysis_files/figure-html/cell-7-output-3.png" width="1717" height="1199" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="71a95b2a" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>key_kernels <span class="op">=</span> [<span class="st">"constant"</span>, <span class="st">"sum"</span>, <span class="st">"product"</span>, <span class="st">"dunbar"</span>]</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>num_plots <span class="op">=</span> <span class="bu">len</span>(key_kernels)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>ncols <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>nrows <span class="op">=</span> (num_plots <span class="op">+</span> <span class="dv">1</span>) <span class="op">//</span> ncols</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    nrows<span class="op">=</span>nrows,</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    ncols<span class="op">=</span>ncols,</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(IMG_WIDTH <span class="op">*</span> ncols, IMG_HEIGHT <span class="op">*</span> nrows),</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    sharey<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> full_df[full_df[<span class="st">"init_cond"</span>] <span class="op">==</span> <span class="st">"All Monomer"</span>].copy()</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>df[<span class="vs">r"</span><span class="dv">$</span><span class="vs">F</span><span class="dv">$</span><span class="vs">"</span>] <span class="op">=</span> df[<span class="st">"frg_kernel"</span>]</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"Aggregation Multiplier"</span>] <span class="op">=</span> df[<span class="st">"agg_multiplier"</span>]</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"Fragmentation Multiplier"</span>] <span class="op">=</span> df[<span class="st">"frg_multiplier"</span>]</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.flatten()</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, kernel_name <span class="kw">in</span> <span class="bu">enumerate</span>(key_kernels):</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> axes[i]</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    sub_df <span class="op">=</span> df[df[<span class="st">"agg_kernel"</span>] <span class="op">==</span> kernel_name]</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    sub_df <span class="op">=</span> sub_df.copy()</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    sub_df[<span class="st">"dom60"</span>] <span class="op">+=</span> np.random.uniform(<span class="op">-</span><span class="fl">0.03</span>, <span class="fl">0.03</span>, <span class="bu">len</span>(sub_df))  <span class="co">## jitter</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="vs">r"</span><span class="dv">$</span><span class="vs">g_{0</span><span class="dv">.</span><span class="vs">6}</span><span class="dv">$</span><span class="vs">"</span>)</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="vs">r"</span><span class="dv">$\d</span><span class="vs">ot{s}</span><span class="dv">$</span><span class="vs">"</span>)</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    ax.set_xlim(left<span class="op">=-</span><span class="fl">0.01</span>)</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="vs">rf"</span><span class="dv">$</span><span class="vs">K=</span><span class="dv">$</span><span class="sc">{</span>kernel_name<span class="sc">}</span><span class="vs">"</span>)</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    sns.scatterplot(</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>sub_df,</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">"s_slope"</span>,</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">"dom60"</span>,</span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>        ax<span class="op">=</span>ax,</span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>        hue<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">F</span><span class="dv">$</span><span class="vs">"</span>,</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>        size<span class="op">=</span><span class="st">"Aggregation Multiplier"</span>,</span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>        sizes<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">200</span>),</span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>        style<span class="op">=</span><span class="st">"Fragmentation Multiplier"</span>,</span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>        legend<span class="op">=</span>i <span class="op">==</span> <span class="dv">0</span>,</span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>handles, labels <span class="op">=</span> axes[<span class="dv">0</span>].get_legend_handles_labels()</span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].get_legend().remove()</span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>fig.legend(handles, labels, loc<span class="op">=</span><span class="st">"lower center"</span>, ncol<span class="op">=</span><span class="dv">8</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">0.5</span>, <span class="op">-</span><span class="fl">0.05</span>))</span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>plt.subplots_adjust(bottom<span class="op">=</span><span class="fl">0.05</span>)  <span class="co"># make room</span></span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>save_path <span class="op">=</span> save_dir <span class="op">/</span> <span class="st">"AllMonomer_costSlope_vs_domination.png"</span></span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>plt.savefig(save_path, bbox_inches<span class="op">=</span><span class="st">"tight"</span>)</span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="47fb09f8" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>key_kernels <span class="op">=</span> [<span class="st">"constant"</span>, <span class="st">"sum"</span>, <span class="st">"product"</span>, <span class="st">"abs"</span>]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>num_plots <span class="op">=</span> <span class="bu">len</span>(key_kernels)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>ncols <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>nrows <span class="op">=</span> (num_plots <span class="op">+</span> <span class="dv">1</span>) <span class="op">//</span> ncols</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    nrows<span class="op">=</span>nrows,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    ncols<span class="op">=</span>ncols,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(IMG_WIDTH <span class="op">*</span> ncols, IMG_HEIGHT <span class="op">*</span> nrows),</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    sharey<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>cond <span class="op">=</span> <span class="st">"First 10"</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> full_df[full_df[<span class="st">"init_cond"</span>] <span class="op">==</span> cond].copy()</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>df[<span class="vs">r"</span><span class="dv">$</span><span class="vs">F</span><span class="dv">$</span><span class="vs">"</span>] <span class="op">=</span> df[<span class="st">"frg_kernel"</span>]</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"Aggregation Multiplier"</span>] <span class="op">=</span> df[<span class="st">"agg_multiplier"</span>]</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"Fragmentation Multiplier"</span>] <span class="op">=</span> df[<span class="st">"frg_multiplier"</span>]</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.flatten()</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, kernel_name <span class="kw">in</span> <span class="bu">enumerate</span>(key_kernels):</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> axes[i]</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    sub_df <span class="op">=</span> df[df[<span class="st">"agg_kernel"</span>] <span class="op">==</span> kernel_name]</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    sub_df <span class="op">=</span> sub_df.copy()</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    sub_df[<span class="st">"dom60"</span>] <span class="op">+=</span> np.random.uniform(<span class="op">-</span><span class="fl">0.03</span>, <span class="fl">0.03</span>, <span class="bu">len</span>(sub_df))  <span class="co">## jitter</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="vs">r"</span><span class="dv">$</span><span class="vs">g_{0</span><span class="dv">.</span><span class="vs">6}</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="vs">r"</span><span class="dv">$\d</span><span class="vs">ot{</span><span class="er">\</span><span class="vs">kappa}_s</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    ax.set_xlim(left<span class="op">=-</span><span class="fl">0.01</span>)</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="vs">rf"</span><span class="dv">$</span><span class="vs">K=</span><span class="dv">$</span><span class="sc">{</span>kernel_name<span class="sc">}</span><span class="vs">"</span>)</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    sns.scatterplot(</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>sub_df,</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">"s_slope"</span>,</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">"dom60"</span>,</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>        ax<span class="op">=</span>ax,</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>        hue<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">F</span><span class="dv">$</span><span class="vs">"</span>,</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>        palette<span class="op">=</span>GROUP_COLORS,</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>        size<span class="op">=</span><span class="st">"Aggregation Multiplier"</span>,</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>        sizes<span class="op">=</span>(<span class="dv">20</span>, <span class="dv">200</span>),</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>        style<span class="op">=</span><span class="st">"Fragmentation Multiplier"</span>,</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>        legend<span class="op">=</span>i <span class="op">==</span> <span class="dv">0</span>,</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>handles, labels <span class="op">=</span> axes[<span class="dv">0</span>].get_legend_handles_labels()</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].get_legend().remove()</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>fig.legend(handles, labels, loc<span class="op">=</span><span class="st">"lower center"</span>, ncol<span class="op">=</span><span class="dv">8</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">0.5</span>, <span class="op">-</span><span class="fl">0.05</span>))</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>plt.subplots_adjust(bottom<span class="op">=</span><span class="fl">0.05</span>)  <span class="co"># make room</span></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>save_path <span class="op">=</span> save_dir <span class="op">/</span> <span class="ss">f"</span><span class="sc">{</span>cond<span class="sc">}</span><span class="ss">_costSlope_vs_domination.pdf"</span></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>plt.savefig(save_path, bbox_inches<span class="op">=</span><span class="st">"tight"</span>, backend<span class="op">=</span><span class="st">"pdf"</span>)</span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="analysis_files/figure-html/cell-7-output-1.png" width="1093" height="1107" class="figure-img"></p>
+<p><img src="analysis_files/figure-html/cell-8-output-1.png" width="1113" height="1107" class="figure-img"></p>
 </figure>
 </div>
+</div>
+</div>
+<div id="6bba60d1" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>key_kernels <span class="op">=</span> [<span class="st">"product"</span>]</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(IMG_WIDTH, IMG_HEIGHT),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># filter</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>cond <span class="op">=</span> <span class="st">"First 10"</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> full_df[full_df[<span class="st">"init_cond"</span>] <span class="op">==</span> cond].copy()</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[df[<span class="st">"agg_multiplier"</span>] <span class="op">==</span> <span class="dv">1</span>].copy()</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[df[<span class="st">"frg_multiplier"</span>] <span class="op">==</span> <span class="fl">0.01</span>].copy()</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># rename</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>df[<span class="vs">r"</span><span class="dv">$</span><span class="vs">F</span><span class="dv">$</span><span class="vs">"</span>] <span class="op">=</span> df[<span class="st">"frg_kernel"</span>]</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"Aggregation Multiplier"</span>] <span class="op">=</span> df[<span class="st">"agg_multiplier"</span>]</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"Fragmentation Multiplier"</span>] <span class="op">=</span> df[<span class="st">"frg_multiplier"</span>]</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, kernel_name <span class="kw">in</span> <span class="bu">enumerate</span>(key_kernels):</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    sub_df <span class="op">=</span> df[df[<span class="st">"agg_kernel"</span>] <span class="op">==</span> kernel_name]</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    sub_df <span class="op">=</span> sub_df.copy()</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    sub_df[<span class="st">"dom60"</span>] <span class="op">+=</span> np.random.uniform(<span class="op">-</span><span class="fl">0.03</span>, <span class="fl">0.03</span>, <span class="bu">len</span>(sub_df))  <span class="co">## jitter</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="vs">r"</span><span class="dv">$</span><span class="vs">g_{0</span><span class="dv">.</span><span class="vs">6}</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="vs">r"</span><span class="dv">$\d</span><span class="vs">ot{</span><span class="er">\</span><span class="vs">kappa}_s</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    ax.set_xlim(left<span class="op">=-</span><span class="fl">0.01</span>)</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="vs">rf"</span><span class="dv">$</span><span class="vs">K=</span><span class="dv">$</span><span class="sc">{</span>kernel_name<span class="sc">}</span><span class="vs">"</span>)</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    sns.scatterplot(</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>sub_df,</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">"s_slope"</span>,</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">"dom60"</span>,</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>        ax<span class="op">=</span>ax,</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>        hue<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="vs">F</span><span class="dv">$</span><span class="vs">"</span>,</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>        palette<span class="op">=</span>GROUP_COLORS,</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>        legend<span class="op">=</span>i <span class="op">==</span> <span class="dv">0</span>,</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>plt.subplots_adjust(bottom<span class="op">=</span><span class="fl">0.05</span>)  <span class="co"># make room</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>save_path <span class="op">=</span> save_dir <span class="op">/</span> <span class="ss">f"</span><span class="sc">{</span>cond<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>kernel_name<span class="sc">}</span><span class="ss">_Pareto.pdf"</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>plt.savefig(save_path, bbox_inches<span class="op">=</span><span class="st">"tight"</span>, backend<span class="op">=</span><span class="st">"pdf"</span>)</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="analysis_files/figure-html/cell-9-output-1.png" width="527" height="564" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="7e3ad58e" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, c <span class="kw">in</span> GROUP_COLORS.items():</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    r, g, b <span class="op">=</span> c[:<span class="dv">3</span>]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\\</span><span class="ss">definecolor</span><span class="ch">{{</span><span class="sc">{</span>k<span class="sc">}</span><span class="ch">}}{{</span><span class="ss">rgb</span><span class="ch">}}{{</span><span class="sc">{</span>r<span class="sc">:.2f}</span><span class="ss">,</span><span class="sc">{</span>g<span class="sc">:.2f}</span><span class="ss">,</span><span class="sc">{</span>b<span class="sc">:.2f}</span><span class="ch">}}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>\definecolor{product}{rgb}{0.30,0.45,0.69}
+\definecolor{r_prod}{rgb}{0.87,0.52,0.32}
+\definecolor{sum}{rgb}{0.33,0.66,0.41}
+\definecolor{constant}{rgb}{0.77,0.31,0.32}
+\definecolor{dunbar}{rgb}{0.51,0.45,0.70}
+\definecolor{abs}{rgb}{0.58,0.47,0.38}
+\definecolor{chipping_1}{rgb}{0.85,0.55,0.76}
+\definecolor{chipping_5}{rgb}{0.55,0.55,0.55}
+\definecolor{tiered_33}{rgb}{0.80,0.73,0.45}
+\definecolor{tiered_50}{rgb}{0.39,0.71,0.80}
+\definecolor{tiered_60}{rgb}{0.30,0.45,0.69}</code></pre>
 </div>
 </div>
 

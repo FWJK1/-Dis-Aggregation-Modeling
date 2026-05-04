@@ -14,3 +14,4 @@ presentation/latex_build
 **/*.quarto_ipynb
 figs/figs 
 data/
+temp

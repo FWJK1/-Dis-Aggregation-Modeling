@@ -27,7 +27,7 @@ Pick a monomer condition and a pair of aggregation / fragmentation kernels to vi
 //| echo: false
 
 conditions = ["All Monomer", "Di_Monomer", "First 10"]
-kernels    = ["chipping_1", "chipping_5", "constant", "dunbar", "product", "r_prod", "sum"]
+kernels    = ["product", "r_prod", "sum", "constant", "dunbar", "abs", "chipping_1", "chipping_5", "tiered_33", "tiered_50", "tiered_60"]
 
 viewof condition = Inputs.select(conditions, {label: "Condition", value: "All Monomer"})
 viewof agg       = Inputs.select(kernels,    {label: "Aggregation kernel",   value: "constant"})
@@ -36,7 +36,7 @@ viewof frg       = Inputs.select(kernels,    {label: "Fragmentation kernel", val
 path = `../figs/heatplots/${encodeURI(`HEATPLOT__${condition}-${agg}-${frg}-100.png`)}`
 
 html`<figure style="margin:1em 0;">
-       <img src="${path}" alt="${path}"
+       <img src="${path}", alt="${path}"
             style="max-width:100%; border:1px solid #ddd; border-radius:4px;"
             onerror="this.replaceWith(Object.assign(document.createElement('div'),{textContent:'No figure found at: ${path}',style:'padding:1em;color:#a00;border:1px dashed #a00;border-radius:4px;'}))">
        <figcaption style="font-family:monospace; font-size:0.85em; color:#666; margin-top:0.5em;">
