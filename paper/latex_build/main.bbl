@@ -15,4 +15,14 @@
 \bibinfo{author}{Krapivsky, P.~L.}, \bibinfo{author}{Redner, S.} \& \bibinfo{author}{{Ben-Naim}, E.}
 \newblock \emph{\bibinfo{title}{A {{Kinetic View}} of {{Statistical Physics}}}} (\bibinfo{publisher}{Cambridge University Press}, \bibinfo{year}{2010}), \bibinfo{edition}{1} edn.
 
+\bibitem{aldousDeterministicStochasticModels1999}
+\bibinfo{author}{Aldous, D.~J.}
+\newblock \bibinfo{journal}{\bibinfo{title}{Deterministic and stochastic models for coalescence (aggregation and coagulation): A review of the mean-field theory for probabilists}}.
+\newblock {\emph{\JournalTitle{Bernoulli}}} \textbf{\bibinfo{volume}{5}}, \bibinfo{pages}{3--48} (\bibinfo{year}{1999}).
+
+\bibitem{manuchehrfarEvolutionCoagulationFragmentationStochastic2019}
+\bibinfo{author}{Manuchehrfar, F.}, \bibinfo{author}{Tian, W.}, \bibinfo{author}{Chou, T.} \& \bibinfo{author}{Liang, J.}
+\newblock \bibinfo{journal}{\bibinfo{title}{Evolution of {{Coagulation-Fragmentation Stochastic Processes Using Accurate Chemical Master Equation Approach}}}}.
+\newblock {\emph{\JournalTitle{Communications in Information and Systems}}} \textbf{\bibinfo{volume}{19}}, \bibinfo{pages}{37--55}, \doiprefix\url{10.4310/cis.2019.v19.n1.a3} (\bibinfo{year}{2019}).
+
 \end{thebibliography}

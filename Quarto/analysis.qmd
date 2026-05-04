@@ -36,11 +36,14 @@ from numba import jit
 from IPython.display import display, Markdown
 from odeintw import odeintw
 import matplotlib.colors as mcolors
+import matplotlib.cm as cm
 
 
 # package global configs
 plt.style.use(["ggplot"])
 save_dir = Path("figs/main")
+palette = sns.color_palette("deep", len(kernels))
+
 ```
 
 
@@ -68,6 +71,13 @@ for file in taskDir.iterdir():
 full_df = df.drop_duplicates(keep="first")
 df.columns
 ```
+
+```{python}
+kernels = df['agg_kernel'].unique()
+GROUP_COLORS = {k: palette[i] for i, k in enumerate(kernels)}
+
+```
+
 
 # Viz 
 
@@ -104,6 +114,7 @@ for condition, df in full_df.groupby("init_cond"):
             x="dom60",
             ax=ax,
             hue=r"$F$",
+            palette=GROUP_COLORS,
             size="Aggregation Multiplier",
             style="Fragmentation Multiplier",
         )
@@ -151,6 +162,7 @@ for i, kernel_name in enumerate(key_kernels):
         x="dom60",
         ax=ax,
         hue=r"$F$",
+        palette=GROUP_COLORS,
         size="Aggregation Multiplier",
         sizes=(20, 200),
         style="Fragmentation Multiplier",
@@ -160,7 +172,14 @@ handles, labels = axes[0].get_legend_handles_labels()
 axes[0].get_legend().remove()
 fig.legend(handles, labels, loc="lower center", ncol=8, bbox_to_anchor=(0.5, -0.05))
 plt.subplots_adjust(bottom=0.05)  # make room
-save_path = save_dir / "AllMonomer_costSlope_vs_domination.png"
-plt.savefig(save_path, bbox_inches="tight")
+save_path = save_dir / "AllMonomer_costSlope_vs_domination.pdf"
+plt.savefig(save_path, bbox_inches="tight", backend="pdf")
 plt.show()
+```
+
+
+```{python}
+for k, c in GROUP_COLORS.items():
+    r, g, b = c[:3]
+    print(f"\\definecolor{{{k}}}{{rgb}}{{{r:.2f},{g:.2f},{b:.2f}}}")
 ```

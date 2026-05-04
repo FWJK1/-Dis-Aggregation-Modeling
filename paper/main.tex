@@ -3,6 +3,19 @@
 \usepackage[T1]{fontenc}
 \usepackage{tabularx}
 \usepackage{array}
+
+\usepackage{booktabs} % better tables
+\usepackage{colortbl}
+\usepackage{xcolor}
+
+\definecolor{product}{rgb}{0.30,0.45,0.69}
+\definecolor{r_prod}{rgb}{0.87,0.52,0.32}
+\definecolor{sum}{rgb}{0.33,0.66,0.41}
+\definecolor{constant}{rgb}{0.77,0.31,0.32}
+\definecolor{dunbar}{rgb}{0.51,0.45,0.70}
+\definecolor{chipping_1}{rgb}{0.58,0.47,0.38}
+\definecolor{chipping_5}{rgb}{0.85,0.55,0.76}
+
 \title{Steady State Cost in Competing Aggregation-Fragmentation Dynamics}
 
 \author[1,*]{Fitzwilliam James Keenan-Koch}
@@ -11,8 +24,8 @@
 
 \begin{abstract}
 Aggregation and fragmentation among polymers has long been an area of active research and utility in physical chemistry. 
-Drawing inspiration from the dynamics of social formulation, we make a preliminary effort at optimization among various potential fragmentation kernels to regulate the probability of gelation. 
-This work has relevance for any work formalizing the formulation, dissolving, and splitting of groups of abstract individuals.
+Drawing inspiration from the dynamics of social formulation, we make a preliminary effort at minimizing cost and probability of domination among various potential fragmentation kernels. 
+This work has relevance for any work formalizing the formulation, dissolving, and  regulation of groups of abstract individuals. 
 Social groups are of particular interest, from musical subcultures to the regulation of corporate consolidation. 
 \end{abstract}
 \begin{document}
@@ -24,77 +37,136 @@ Social groups are of particular interest, from musical subcultures to the regula
 
 %%% Introduction section %%%%
 \section{Introduction}
-Things fall apart, Keats wrote.\cite{zotero-item-4381}
+Things fall apart, Yeats wrote \cite{zotero-item-4381}.
 Of course, they also come together.
-How is a balance struck between the two?
-What does does such a balance cost?
+What balance is struck between the two, and crucially, \textbf{what does this balance cost}?
+
+To attempt an answer to this question, we turn to the physics of aggregation and fragmentation, the competing processes by which  particles combine to form larger clusters and break up into smaller ones.
+As thoroughly explicated in \textit{A Kinetic View of Statistical Physics}, aggregation and fragmentation can be thought of as an infinite set of differential equations over all cluster sizes from one to infinity\cite{krapivskyKineticViewStatistical2010}.
+Rates of change are based on current amounts of clusters and a kernel specifying reaction rates between clusters of various sizes.
+Clusters of size one are termed monomers, and the formulation as a whole is termed the Smoluchowski equations.
+
+While Krapivsky \textit{et al} term such differential equations master equations, their equations make a mean-field assumption:  they track the  \textit{expected} cluster size distribution and assume it deterministic rather than keeping track of the full spread of probability over the stochastic evolution of the system.
+In other words, they track the \textit{count} of the cluster sizes, rather than the probability of \textit{each count} of each cluster.
+
+A more complete accounting is given by the Marcus--Lushnikov process, in which $ ML^{(n)}(x, t) $ is a random number whose probability evolves according to a Markov Chain involving all other $ ML^{(n_i)}(x, t)  $  \cite{aldousDeterministicStochasticModels1999}.
+These models typically rescale the total mass of the system to be $ 1 $, and are identical to the Smoluchowski equations if the kernel is homogenous, or as $ N $, the number of initial unitary particles considered, goes to infinity.
+However, these models are far less tractable, and even in 2018 computing the time-evolving probability with only $ 48 $ initial monomers took around $ 3000 $ minutes\cite{manuchehrfarEvolutionCoagulationFragmentationStochastic2019}.
+
+Regardless of the form, prior work has largely focused on either the time-evolution  of cluster sizes or the static steady state distribution of them.
+Instead, this work focus on the interplay between the steady state rate of fragmentation, or the \textit{cost} of maintaining the steady state, and the distribution of cluster sizes.
+More simply, using the Smoluchowski equation form, this work charts the pareto front between minimizing the steady state probability of having an oversized \textit{dominant} cluster and minimizing the number of units of mass continually split by fragmentation.
 
 
-Whether \textit{homo economicus} or \textit{homo sociologicus}, the coordinating and organizational capabilities of the human race are broadly agreed upon as one of our key defining features.
-W
+% The Introduction section can use referenced texts, for example which calls references listed as bibitems in the \texttt{sample.bib} bibliography file.
+% The introduction should expand on the background of the work (some overlap with the Abstract is acceptable) and explain your interests in the problem.
+% The introduction should not include subheadings.
 
-We attempt
-
-The Introduction section can use referenced texts, for example which calls references listed as bibitems in the \texttt{sample.bib} bibliography file.
-The introduction should expand on the background of the work (some overlap with the Abstract is acceptable) and explain your interests in the problem.
-The introduction should not include subheadings.
-
-
-Aggregation is generally the transition
-$$
-    A_{i} + A_{j} \xrightarrow[]{K_{ij}} A_{i+j}
-$$
-where:
-- $A$ is a cluster
-- $i$ and $j$ are masses
-- $K_{ij}$ is the rate of aggregation between clusters of mass $i$ and mass $j$ into a clusters of mass $i +j$
-- $K$, then, is an infinite symmetric matrix $K_{i,j}=K_{j, i}$
-
-The master equations for which are:
-\begin{align}
-    \frac{\mathrm{d} c_{k}}{\mathrm{d} t } & = \frac{1}{2} \sum_{i+j=k} K_{ij} c_{i} c_{j} - c_{k} \sum_{i \geq  1} K_{ik}c_{i}                              \\
-                                           & = \frac{1}{2} \sum_{i, j \leq  1} K_{ij} c_{i} c_{j} \Big[\delta_{i+j, k} - \delta_{i, k} - \delta_{j, k} \Big]
-\end{align}
-where $\delta$ is the Kronecker delta.
-
-
-We propose additional **disaggregation** based on the general idea
-$$
-    A_{k} \xrightarrow[]{L_{ki}} A_{i} + A_{k-i}
-$$
-where $L_{ki}$ is the rate of disaggregation from clusters of mass $k$ to clusters of mass $i, k-i$ such that $L$ is **not** a symmetric matrix, as $L_{31}$ is potentially valued and $L_{13}$ is certainly $0$.
-And with master equations:
-$$
-    \frac{\mathrm{d} c_{k}}{\mathrm{d} t } = \sum_{i \geq  1} [L_{ik}c_{i}(1 + \delta_{i, 2k}) - L_{ki}c_{i}]
-$$
-where the Kronecker delta allows us to double count when the cluster splits into two equal clusters of size $k$.
 
 
 
 %%% Methods section %%%%
-\section{Methods: A model of something}
+\section{Methods: }
 
-Up to three levels of \textbf{subheadings} are permitted. Subheadings should not be numbered (this is done by using an asterisk after any \texttt{subsection} or \texttt{subsubsection} command.
+
+
+% Up to three levels of \textbf{subheadings} are permitted. Subheadings should not be numbered (this is done by using an asterisk after any \texttt{subsection} or \texttt{subsubsection} command.
 
 \subsection*{The problem}
-The first section should be a clear definition of the problem statement. That is, what is the system to be modelled and (if applicable) what specific research questions are you after.
 
-This is example of more text under a subsection. Bulleted lists may be used where appropriate, e.g.
-\begin{itemize}
-    \item First item
-    \item Second item
-\end{itemize}
+We model competing aggregation and fragmentation over a variety of rate kernels in order to study the steady-state distribution of cluster sizes as well as the steady-state rate of fragmentation measured in units of mass removed from larger clusters.
+Our question is simple: given a pattern of aggregation, what fragmentation technique minimize the proportion of dominant clusters and steady-state fragmentation rate?
+Does this dual-minimization create a pareto front?
+
+% The first section should be a clear definition of the problem statement. That is, what is the system to be modelled and (if applicable) what specific research questions are you after.
+
+
 
 \subsection*{The model}
 
-A clear model, specifying the modeling approaches, assumptions, parameters, objectives (what it should be used for or not). Consider using a model card once we revisit the concept in class.
+\subsubsection*{Aggregation}
+
+Aggregation is generally the transition
+$$
+    c_{i} + c_{j} \xrightarrow[]{K_{ij}} c_{i+j}
+$$
+where:
+\begin{itemize}
+    \item $ N $ is the total amount of mass divided by the size of the smallest cluster, which we normalize to $ 1 $.
+    \item $c$ is a cluster
+    \item $i$ and $j$ are masses
+    \item $K_{ij}$ is the rate of aggregation between clusters of mass $i$ and mass $j$ into a clusters of mass $i +j$
+    \item $K$, then, is an finite symmetric matrix $K_{i,j}=K_{j, i}$ of dimensions $ N \times N $
+\end{itemize}
+
+With the ordinary differential equation for all cluster sizes $ c_k $ :
+\begin{align}
+    \frac{\mathrm{d} c_{k}}{\mathrm{d} t } = \dot{c}_k & = \frac{1}{2} \sum_{i+j=k} K_{ij} c_{i} c_{j} - c_{k} \sum_{i \geq  1} K_{ik}c_{i} \label{eq:ag_main}
+    \\       & = \frac{1}{2} \sum_{i, j \leq  1} K_{ij} c_{i} c_{j} \Big[\delta_{i+j, k} - \delta_{i, k} - \delta_{j, k} \Big]
+\end{align}
+where $\delta$ is the Kronecker delta.
+
+\subsubsection*{Fragmentation}
+
+Fragmentation is generally the transition
+$$
+    c_{i+j}  \xrightarrow[]{F_{ij}} c_{i} + c_{j}
+$$
+where $F$ is an finite symmetric matrix of size $ N \times N  $ and $F_{ij}$ is the rate of fragmentation of a cluster of size $i+j$ into a cluster of size $i$ and another of size $j$.
+
+The ordinary differential equation for fragmentation across all clusters is then::
+\begin{align}
+    \frac{\mathrm{d} c_{k}}{\mathrm{d} t } = \sum _{j \geq  1} F_{kj}c_{j+k} - \frac{1}{2} \sum _{i+j=k}F_{ij} \label{eq:frg_main}
+\end{align}
+
+
+\subsubsection*{Aggregation and Fragmentation}
+
+
+Putting equations \eqref{eq:ag_main} and \eqref{eq:frg_main} together yields the overall differential equation:
+\begin{align}
+    \frac{\mathrm{d} c_{k}}{\mathrm{d} t }  = \frac{1}{2} \sum _{i+j=k} K_{ij}c_{i}c_{j} - c_{k}\sum _{j \geq  1}K_{kj}c_{j} + \sum _{j\geq  1} F_{kj} c_{j+k} - \frac{1}{2} c_{k} \sum _{i+j=k}F_{ij}
+\end{align}
+
+\subsubsection*{Cost and Domination}
+\subsubsection*{Kernels}
+
+Table \ref{tab:kernels}
+
+\vspace{0.5em}
+\begin{table}
+    \centering
+    \large
+    \setlength{\tabcolsep}{12pt}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Name}                         & \textbf{Equation}                                                        \\
+        \midrule
+        \rowcolor{chipping_1}  Chipping Model & $F_{ij} = \gamma (\delta_{i,1} + \delta_{j,1})$                          \\
+        \rowcolor{chipping_5}  Chipping Model & $F_{ij} = \gamma (\delta_{i,5} + \delta_{j,5})$                          \\
+        \rowcolor{sum}   Sum                  & $F_{ij} = \gamma(i + j)$                                                 \\
+        \rowcolor{product}  Product           & $F_{ij} = \gamma(ij)$                                                    \\
+        \rowcolor{constant}  Constant         & $F_{ij} = \gamma $                                                       \\
+        \rowcolor{r_prod}  Reverse Product    & $F_{ij} = \frac{\gamma}{ij} $                                            \\
+        \rowcolor{dunbar}  Dunbar             & $F_{ij} = \gamma \big(ij + \frac{2(i + j)}{150}  + \frac{4}{150^2}\big)$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{Specification of the seven kernels used for aggregation and fragmentation.}
+    \label{tab:kernels}
+\end{table}
+
+\vspace{0.5em}
+
+% A clear model, specifying the modeling approaches, assumptions, parameters, objectives (what it should be used for or not). Consider using a model card once we revisit the concept in class.
 
 %Comment out if the model card is not useful
 \input{model-card}
 
 \subsubsection*{Third-level section}
 
-Topical subheadings are allowed so feel free to change the \texttt{subsection} or \texttt{subsubsection} titles. This is an example of a \texttt{subsubsection}.
+
+% Topical subheadings are allowed so feel free to change the \texttt{subsection} or \texttt{subsubsection} titles. This is an example of a \texttt{subsubsection}.
 
 %%% Results section %%%%
 \section{Results\label{sec:results}}
@@ -109,8 +181,8 @@ The results can contain subheadings as desired and can discuss the results direc
     \label{fig:stream}
 \end{figure}
 
-% Example of a table
-\begin{table}[ht]
+
+\begin{table}[]
     \centering
     \begin{tabular}{|l|l|l|}
         \hline
@@ -122,7 +194,10 @@ The results can contain subheadings as desired and can discuss the results direc
         \hline
     \end{tabular}
     \caption{\label{tab:example}Legend (350 words max). Example legend text for an example table.}
+    \label{tab:example}
 \end{table}
+% Example of a table
+
 
 %%% Discussion section %%%%
 \section{Discussion}

@@ -9,9 +9,9 @@ import pandas as pd
 import numpy as np
 
 # project imports
-from project.src.viz import heatmap_cluster_sizes
-from project.src.integration import agg_frag_meq
-from project.src.calculation import (
+from src.viz import heatmap_cluster_sizes
+from src.integration import agg_frag_meq
+from src.calculation import (
     steady_state,
     calculate_domination,
     steady_state_slope,
@@ -104,9 +104,7 @@ def main_loop(
             initial_conditions=initial_condition_dict[initial_cond],
         )
 
-        heatmap_cluster_sizes(
-            ax, t_length, x_path, title_string=title_string
-        )
+        heatmap_cluster_sizes(ax, t_length, x_path, title_string=title_string)
 
         s_idx = steady_state(x_path)
         s_slope = steady_state_slope(cost_path, t_vec, s_idx)
@@ -134,10 +132,7 @@ def main_loop(
 
     fig_dir = Path("project/figs")
     fig_dir.mkdir(parents=True, exist_ok=True)
-    fig_path = (
-        fig_dir
-        / f"HEATPLOT__{initial_cond}-{agg_kernel}-{frg_kernel}-{N}.png"
-    )
+    fig_path = fig_dir / f"HEATPLOT__{initial_cond}-{agg_kernel}-{frg_kernel}-{N}.pdf"
     plt.tight_layout()
     plt.savefig(fig_path)
     plt.close("all")
@@ -151,9 +146,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if not 0 <= args.task_id < len(COMBOS):
-        raise SystemExit(
-            f"task_id {args.task_id} out of range [0, {len(COMBOS)})"
-        )
+        raise SystemExit(f"task_id {args.task_id} out of range [0, {len(COMBOS)})")
 
     init_cond, agg_kernel, frg_kernel = COMBOS[args.task_id]
     print(
