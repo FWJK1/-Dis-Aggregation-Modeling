@@ -31,7 +31,7 @@ echo "Working directory: $(pwd)"
 echo "Task ID: $SLURM_ARRAY_TASK_ID"
 echo "Start time: $(date)"
 
-cd /users/f/k/fkeenank/mocs-ii-hw
+cd /users/f/k/fkeenank/Disaggregation
 python -u -m project.src.run --task_id $SLURM_ARRAY_TASK_ID
 
 echo "End time: $(date)"
