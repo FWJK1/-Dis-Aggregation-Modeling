@@ -258,12 +258,14 @@ However, \textcolor{abs}{Absolute Difference } and \textcolor{rprod}{Reverse Pro
 Figure \ref{fig:costSlopeAll} therefore drills down into a subset of four kernels with the most activity.
 In all but the  \textcolor{product}{Product}  aggregation kernel, the steady state cost is almost zero across all steady states, and the fragmentary kernel dictates only how strong the dominating mass will be.
 Through, all three, the Tiered kernels perform the best, regardless of $ \theta $ value, and the two chipping kernels the worst.
+Note that there are competitive fragmentation kernels at all values of both $ \alpha $ and $ \beta $, though as we might expect small aggregation kernels produce significantly less domination.
 
 
 In the \textcolor{product}{Product} aggregation kernel, however, we see a different story.
 Strong tradeoffs between $ \dot{\kappa}_s $ and $ g_{0.6} $, most clearly when $ \alpha = 1 $ and $ \beta = .01 $.
-Figure .... examines this apparent Pareto front more closely.
-In other words, a Pareto front of dual optimization emerges most clearly \textit{when the fragmentary kernel is overwhelmed}.
+Figure \ref{fig:paretoProd} thus illustrates only these values, and produces three clear results.
+\textbf{First}, there is no clearly optimal fragmentary kernel, though \textcolor{rprod}{Reverse Product}, \textcolor{chipping1}{Chipping 1}, and \textcolor{chipping5}{Chipping 5} kernels are clearly the worst, completely failing to prevent domination, with the \textcolor{constant}{Constant} kernel only slightly behind.
+In other words, a Pareto front of dual optimization emerges most clearly when the the
 Note that we show only the \textbf{All Monomer} initial conditions, since the other initial conditions we tested were functionally identical.
 
 \begin{figure}
