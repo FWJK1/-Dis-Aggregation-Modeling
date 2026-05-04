@@ -19,14 +19,27 @@ def dunbar(i, j):
     return i * j + 2 / 150 * (i + j) + 4 / 150 / 150
 
 
+def make_tiered(theta, N):
+    def tiered(i, j):
+        if i + j > theta * N:
+            return 2 * i * j
+        return 0
+
+    return tiered
+
+
 K_DICT = {
-    "product": lambda i, j: i * j,
+    "product": lambda i, j,: i * j,
     "r_prod": lambda i, j: 1 / (i * j) if i * j > 0 else 0,
     "sum": lambda i, j: i + j,
     "constant": lambda i, j: 1,
     "dunbar": dunbar,
-    "chipping_1": lambda i, j: delta(i, 1) + delta(j, 1),
-    "chipping_5": lambda i, j: delta(i, 5) + delta(j, 5),
+    "chipping_1": lambda i, j: (delta(i, 1) + delta(j, 1)),
+    "chipping_5": lambda i, j: (delta(i, 5) + delta(j, 5)),
+    "tiered_33": make_tiered(0.33, 100),
+    "tiered_50": make_tiered(0.5, 100),
+    "tiered_60": make_tiered(0.6, 100),
+    "abs": lambda i, j: abs(i - j),
 }
 
 

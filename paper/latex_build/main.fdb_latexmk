@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex latex_build/main"] 1777869542.23802 "latex_build/main.aux" "latex_build/main.bbl" "latex_build/main" 1777869543.11734 0
+["bibtex latex_build/main"] 1777918972.78359 "latex_build/main.aux" "latex_build/main.bbl" "latex_build/main" 1777919269.23768 0
   "./naturemag-doi.bst" 1777854025.21232 36153 a59af0557a0f0c0e857533e984f737bb ""
-  "/home/fitsl/library/zotero/fjk_library.bib" 1777862181.22322 333408 0dec464738ff35cb9f3c7c48b4dee761 ""
-  "latex_build/main.aux" 1777869542.92301 3581 2c2fa4df0492f324f845a05ea9b4b614 "pdflatex"
+  "/home/fitsl/library/zotero/fjk_library.bib" 1777918524.25848 336229 9ab7655995b951eeb8dcdb6e1ae99da8 ""
+  "latex_build/main.aux" 1777919268.73808 4098 7321db214b9799cb1b9e464b29047beb "pdflatex"
   (generated)
   "latex_build/main.bbl"
   "latex_build/main.blg"
   (rewritten before read)
-["pdflatex"] 1777869542.31704 "/home/fitsl/hw/Aggregation_Project_MOCS_II/paper/main.tex" "main.pdf" "main" 1777869543.11751 0
-  "/home/fitsl/hw/Aggregation_Project_MOCS_II/paper/main.tex" 1777869541.15284 11500 3ff83826f2464dc06982e8137b3f519d ""
+["pdflatex"] 1777919267.33253 "/home/fitsl/hw/Aggregation_Project_MOCS_II/paper/main.tex" "main.pdf" "main" 1777919269.23813 0
+  "/home/fitsl/hw/Aggregation_Project_MOCS_II/paper/main.tex" 1777919266.80091 18280 35f57fe8b6be75baab1a79fe364e3fca ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1775001600 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm" 1136768653 1292 bd42be2f344128bff6d35d98474adfe3 ""
@@ -47,6 +47,7 @@
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1248133631 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1248133631 35752 024fb6c41858982481f6968b5fc26508 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1248133631 34694 ad62b13721ee8eda1dcc8993c8bd7041 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb" 1136849748 45758 19968a0990191524e34e1994d4a31cb6 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb" 1136849748 35941 f27169cc74234d5bd5e4cca5abafaabb ""
   "/usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb" 1136849748 39013 b244066151b1e3e718f9b8e88a5ff23b ""
@@ -179,10 +180,10 @@
   "jabbrv-ltwa-all.ldf" 1777854025.19514 49107 ef89484545be005458b7162f37634c99 ""
   "jabbrv-ltwa-en.ldf" 1777854025.19729 268657 c239d07b7cc89e14f920c5fc8ed8d12e ""
   "jabbrv.sty" 1777854025.19274 15480 2106da179daf9d5a102407956ba23e0c ""
-  "latex_build/main.aux" 1777869542.92301 3581 2c2fa4df0492f324f845a05ea9b4b614 "pdflatex"
-  "latex_build/main.bbl" 1777869542.30902 1734 fdee6e979c6a64187d878eff1d6f1f72 "bibtex latex_build/main"
-  "latex_build/main.out" 1777869542.92401 458 fc8c1d7a359b8a5b0160b9bf08a80884 "pdflatex"
-  "main.tex" 1777869541.15284 11500 3ff83826f2464dc06982e8137b3f519d ""
+  "latex_build/main.aux" 1777919268.73808 4098 7321db214b9799cb1b9e464b29047beb "pdflatex"
+  "latex_build/main.bbl" 1777918972.92545 2129 b6247cf155a5146bdf17c5dbc87cfd7a "bibtex latex_build/main"
+  "latex_build/main.out" 1777919268.73908 458 fc8c1d7a359b8a5b0160b9bf08a80884 "pdflatex"
+  "main.tex" 1777919266.80091 18280 35f57fe8b6be75baab1a79fe364e3fca ""
   "model-card.tex" 1777854025.20442 1286 f4694dc07159f586ecb95b15f5f911e4 ""
   "stream.jpg" 1777854025.21709 379752 0d2b78190bb8e3a8b437b513aa4c6aaa ""
   "wlscirep.cls" 1777854025.21928 5824 2bca8e85f20d8d313a7747a78c480ad7 ""

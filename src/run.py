@@ -31,7 +31,16 @@ initial_condition_dict = {
 }
 
 INIT_CONDS = ["All Monomer", "Di_Monomer", "First 10"]
-KERNELS = [
+AGG_KERNELS = [
+    "product",
+    "r_prod",
+    "sum",
+    "constant",
+    "dunbar",
+    "abs",
+]
+
+FRG_KERNELS = [
     "product",
     "r_prod",
     "sum",
@@ -39,10 +48,14 @@ KERNELS = [
     "dunbar",
     "chipping_1",
     "chipping_5",
+    "tiered_33",
+    "tiered_50",
+    "tiered_60",
+    "abs",
 ]
 
-# 3 * 7 * 7 = 147
-COMBOS = list(product(INIT_CONDS, KERNELS, KERNELS))
+# 3  * 6 * 11 = 198
+COMBOS = list(product(INIT_CONDS, AGG_KERNELS, FRG_KERNELS))
 
 
 def main_loop(

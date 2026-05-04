@@ -1,7 +1,7 @@
 #!/bin/bash -l
 
 #SBATCH --job-name=mocs_grid
-#SBATCH --array=0-146%20
+#SBATCH --array=0-197%20
 
 #SBATCH --nodes=1
 #SBATCH --ntasks=1

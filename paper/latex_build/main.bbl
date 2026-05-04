@@ -9,7 +9,7 @@
 
 \bibitem{zotero-item-4381}
 \bibinfo{author}{Yeats, W.}
-\newblock \emph{\bibinfo{title}{The {{Second Coming}}}}.
+\newblock \emph{\bibinfo{title}{The {{Second Coming}}}} (\bibinfo{year}{1919}).
 
 \bibitem{krapivskyKineticViewStatistical2010}
 \bibinfo{author}{Krapivsky, P.~L.}, \bibinfo{author}{Redner, S.} \& \bibinfo{author}{{Ben-Naim}, E.}
@@ -24,5 +24,10 @@
 \bibinfo{author}{Manuchehrfar, F.}, \bibinfo{author}{Tian, W.}, \bibinfo{author}{Chou, T.} \& \bibinfo{author}{Liang, J.}
 \newblock \bibinfo{journal}{\bibinfo{title}{Evolution of {{Coagulation-Fragmentation Stochastic Processes Using Accurate Chemical Master Equation Approach}}}}.
 \newblock {\emph{\JournalTitle{Communications in Information and Systems}}} \textbf{\bibinfo{volume}{19}}, \bibinfo{pages}{37--55}, \doiprefix\url{10.4310/cis.2019.v19.n1.a3} (\bibinfo{year}{2019}).
+
+\bibitem{dunbarNeocortexSizeConstraint1992}
+\bibinfo{author}{Dunbar, R. I.~M.}
+\newblock \bibinfo{journal}{\bibinfo{title}{Neocortex size as a constraint on group size in primates}}.
+\newblock {\emph{\JournalTitle{Journal of Human Evolution}}} \textbf{\bibinfo{volume}{22}}, \bibinfo{pages}{469--493}, \doiprefix\url{10.1016/0047-2484(92)90081-J} (\bibinfo{year}{1992}).
 
 \end{thebibliography}

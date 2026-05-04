@@ -7,14 +7,15 @@
 \usepackage{booktabs} % better tables
 \usepackage{colortbl}
 \usepackage{xcolor}
+\usepackage{amssymb}
 
 \definecolor{product}{rgb}{0.30,0.45,0.69}
-\definecolor{r_prod}{rgb}{0.87,0.52,0.32}
+\definecolor{rprod}{rgb}{0.87,0.52,0.32}
 \definecolor{sum}{rgb}{0.33,0.66,0.41}
 \definecolor{constant}{rgb}{0.77,0.31,0.32}
 \definecolor{dunbar}{rgb}{0.51,0.45,0.70}
-\definecolor{chipping_1}{rgb}{0.58,0.47,0.38}
-\definecolor{chipping_5}{rgb}{0.85,0.55,0.76}
+\definecolor{chipping1}{rgb}{0.58,0.47,0.38}
+\definecolor{chipping5}{rgb}{0.85,0.55,0.76}
 
 \title{Steady State Cost in Competing Aggregation-Fragmentation Dynamics}
 
@@ -42,7 +43,7 @@ Of course, they also come together.
 What balance is struck between the two, and crucially, \textbf{what does this balance cost}?
 
 To attempt an answer to this question, we turn to the physics of aggregation and fragmentation, the competing processes by which  particles combine to form larger clusters and break up into smaller ones.
-As thoroughly explicated in \textit{A Kinetic View of Statistical Physics}, aggregation and fragmentation can be thought of as an infinite set of differential equations over all cluster sizes from one to infinity\cite{krapivskyKineticViewStatistical2010}.
+As thoroughly explicated  in \textit{A Kinetic View of Statistical Physics}, aggregation and fragmentation can be thought of as an infinite set of differential equations over all cluster sizes from one to infinity\cite{krapivskyKineticViewStatistical2010}.
 Rates of change are based on current amounts of clusters and a kernel specifying reaction rates between clusters of various sizes.
 Clusters of size one are termed monomers, and the formulation as a whole is termed the Smoluchowski equations.
 
@@ -50,7 +51,7 @@ While Krapivsky \textit{et al} term such differential equations master equations
 In other words, they track the \textit{count} of the cluster sizes, rather than the probability of \textit{each count} of each cluster.
 
 A more complete accounting is given by the Marcus--Lushnikov process, in which $ ML^{(n)}(x, t) $ is a random number whose probability evolves according to a Markov Chain involving all other $ ML^{(n_i)}(x, t)  $  \cite{aldousDeterministicStochasticModels1999}.
-These models typically rescale the total mass of the system to be $ 1 $, and are identical to the Smoluchowski equations if the kernel is homogenous, or as $ N $, the number of initial unitary particles considered, goes to infinity.
+These models typically rescale the total mass of the system to be $ 1 $, and are identical to the Smoluchowski equations if the kernel is homogenous, or as $ M $, the number of initial unitary particles considered, goes to infinity.
 However, these models are far less tractable, and even in 2018 computing the time-evolving probability with only $ 48 $ initial monomers took around $ 3000 $ minutes\cite{manuchehrfarEvolutionCoagulationFragmentationStochastic2019}.
 
 Regardless of the form, prior work has largely focused on either the time-evolution  of cluster sizes or the static steady state distribution of them.
@@ -82,7 +83,7 @@ Does this dual-minimization create a pareto front?
 
 
 
-\subsection*{The model}
+\subsection*{Preliminaries}
 
 \subsubsection*{Aggregation}
 
@@ -92,16 +93,17 @@ $$
 $$
 where:
 \begin{itemize}
-    \item $ N $ is the total amount of mass divided by the size of the smallest cluster, which we normalize to $ 1 $.
+    \item $ M $ is the total amount of mass divided by the size of the smallest cluster (which is  $ 1 $).
     \item $c$ is a cluster
-    \item $i$ and $j$ are masses
+    \item $i$ and $j$ are masses, or sizes
     \item $K_{ij}$ is the rate of aggregation between clusters of mass $i$ and mass $j$ into a clusters of mass $i +j$
-    \item $K$, then, is an finite symmetric matrix $K_{i,j}=K_{j, i}$ of dimensions $ N \times N $
+    \item $K$, then, is a symmetric matrix $K_{ij}=K_{j i}$ of dimensions $ M \times M $
+    \item The clusters $ \vec{c} $ are all well-mixed and come into `aggregation radius' with a rate determined solely by their quantity.
 \end{itemize}
 
-With the ordinary differential equation for all cluster sizes $ c_k $ :
+Then the continuous ordinary differential equation for all cluster sizes $ c_k $ is the sum of aggregation rates producing a cluster size and the rate of aggregation reducing the amount of a cluster size, with each weighted by the current amount of the relevant clusters:
 \begin{align}
-    \frac{\mathrm{d} c_{k}}{\mathrm{d} t } = \dot{c}_k & = \frac{1}{2} \sum_{i+j=k} K_{ij} c_{i} c_{j} - c_{k} \sum_{i \geq  1} K_{ik}c_{i} \label{eq:ag_main}
+    \frac{\mathrm{d} c_{k}}{\mathrm{d} t } & = \frac{1}{2} \sum_{i+j=k} K_{ij} c_{i} c_{j} - c_{k} \sum_{i \geq  1} K_{ik}c_{i} \label{eq:ag_main}
     \\       & = \frac{1}{2} \sum_{i, j \leq  1} K_{ij} c_{i} c_{j} \Big[\delta_{i+j, k} - \delta_{i, k} - \delta_{j, k} \Big]
 \end{align}
 where $\delta$ is the Kronecker delta.
@@ -112,26 +114,95 @@ Fragmentation is generally the transition
 $$
     c_{i+j}  \xrightarrow[]{F_{ij}} c_{i} + c_{j}
 $$
-where $F$ is an finite symmetric matrix of size $ N \times N  $ and $F_{ij}$ is the rate of fragmentation of a cluster of size $i+j$ into a cluster of size $i$ and another of size $j$.
-
-The ordinary differential equation for fragmentation across all clusters is then::
+where $F$ is a symmetric matrix of size $ M \times M  $ and $F_{ij}$ is the rate of fragmentation of a cluster of size $i+j$ into a cluster of size $i$ and another of size $j$. The ordinary differential equation for fragmentation across all clusters is then:
 \begin{align}
-    \frac{\mathrm{d} c_{k}}{\mathrm{d} t } = \sum _{j \geq  1} F_{kj}c_{j+k} - \frac{1}{2} \sum _{i+j=k}F_{ij} \label{eq:frg_main}
+    \frac{\mathrm{d} c_{k}}{\mathrm{d} t } = \sum _{j \geq  1} F_{kj}c_{j+k} - \frac{1}{2} c_k \sum _{i+j=k}F_{ij} \label{eq:frg_main}
 \end{align}
-
 
 \subsubsection*{Aggregation and Fragmentation}
 
 
-Putting equations \eqref{eq:ag_main} and \eqref{eq:frg_main} together yields the overall differential equation:
+Putting equations \eqref{eq:ag_main} and \eqref{eq:frg_main} together and scaling them by parameterized rates $ \alpha$ and $\beta $  yields the main differential equation we use in our model:
 \begin{align}
-    \frac{\mathrm{d} c_{k}}{\mathrm{d} t }  = \frac{1}{2} \sum _{i+j=k} K_{ij}c_{i}c_{j} - c_{k}\sum _{j \geq  1}K_{kj}c_{j} + \sum _{j\geq  1} F_{kj} c_{j+k} - \frac{1}{2} c_{k} \sum _{i+j=k}F_{ij}
+    \frac{\mathrm{d} c_{k}}{\mathrm{d} t }   = \dot{c}_k & = \frac{1}{2} \sum _{i+j=k} \alpha K_{ij}c_{i}c_{j} - c_{k}\sum _{j \geq  1} \alpha K_{kj}c_{j} + \sum _{j\geq  1} \beta F_{kj} c_{j+k} - \frac{1}{2} c_{k} \sum _{i+j=k} \beta F_{ij} \label{eq:ag_frg}
 \end{align}
 
-\subsubsection*{Cost and Domination}
+
+\subsection*{The Model}
+
+
+Using equation \eqref{eq:ag_frg} as our basis, we let $ T = 100  $ be the total time the integrator runs, and $ M = 100 $ be the total amount of mass, which is conserved across all steps.
+Note that in calculations we use a normalized representation of mass $ N=1$, so the initial choice of $ M $ affects only the speed of our calculation and the resolution of our results; in other words, $ M $  is effectually the number of discrete `buckets' of cluster sizes.
+Higher $ M $  produces slower, but more granular, integrations.
+With this formalization in place, we use the \verb|scipy| Python package to integrate the differential equation and thus calculate the time evolution of the system.
+From this time evolution we are able to easily calculate the earliest time index $ s $  at which the state of the system ceases to change and thus reaches a steady state.
+
+\subsubsection*{Cost}
+The main emphasis of this work is to keep track of the time evolution not only of the cluster sizes, but of the \textit{rate of fragmentation}.
+More specifically, we are interested in the rate at which unit masses are broken off of clusters; the number of unit masses that break at each infinitesimal $ \mathrm{d}t  $ .
+Letting $ \kappa $ indicate this cost, we can write its rate as:
+\begin{align}
+    \dot{\kappa} = \sum_{k = 1}^{M} \  \sum_{i + j = k } \beta F_{ij}c_{k}(t) \times \min(i, j) \label{eq:kappa_dot}
+\end{align}
+where we write only one fragmentation sum because the sum of mass leaving all cluster sizes double counts with the sum of mass entering all cluster sizes.
+To calculate the full time-evolution of cost, we augment the state vector with an additional variable $ c_\kappa $ with associated differential equation  \eqref{eq:kappa_dot}.
+
+Therefore when the integrator finishes running we have $ \vec{\kappa} $, the vector of how $ \kappa $ changes over the full time-evolution of the system.
+However, what we are principally interested in is $ \dot{\kappa} $, the continuous rate; more particularly, we are interested in $ \dot{\kappa}_s $, the rate of fragmentation \textit{when the system is in a steady state}.
+To derive this, we simply calculate the gradient of $ \vec{\kappa} $ from $ t=s $ onwards using \verb|numpy|.
+
+\subsubsection*{Domination}
+The goal of this model is to simulate certain social systems just as much as it is physical.
+As such, we are interested not in gelation, when all mass in the system converts to a single cluster, but in \textbf{Domination}, when a cluster is larger than the sum of all other clusters.
+Clearly, this must happen whenever a cluster contains more than $ 50\% $ of the mass.
+Generally, however, we are able to say that the proportion of mass in clusters greater than some dominating threshold $ x $ is the weighted ratio:
+
+\begin{align}
+    g_{x}(t)   = \frac{\sum_{{k > xM}} c_{k}(t) k}{\sum_1^M c_{k(t)} k} \label{eq:dom}
+\end{align}
+
+Where the denominator is always $ 1 $ but is left included for completeness and  to account for any numerical drift.
+To calculate some $ g_{x} $ in practice, we take the distribution of clusters at the steady state $ t=s $ and complete equation \eqref{eq:dom}; we are interested in this value only at the steady state of the system and leave this implicit in the notation.
+Throughout, we report generally on $ g_{0.6} $, the proportion of mass in clusters greater than $ .6M $, though $ g_{0.8} $ is calculated as well.
+
+
 \subsubsection*{Kernels}
 
-Table \ref{tab:kernels}
+Recall that the only requirement for our kernels $ K $  and $ F $ is that they are symmetric.
+It is then easy to see that there is an infinite set of kernels, even without our scaling rates $ \alpha $ and $ \beta $; consider, for example, $ (i+j)^p \ \forall p \in \mathbb{R}$.
+For this reason, we use kernels drawn from a combination of physics literature and inspiration from social phenomena.
+
+First, aggregation.
+Consider our clusters as polymer chains consisting of $ k $ monomers, each with all monomers having the same amount of $ f $-functional reactive endgroups.
+Clearly, anytime a monomer joins a polymer chain, two endgroups are consumed and $ f $ are added, as in equation \eqref{eq:poly_1}.
+If all endgroups are equally reactive, then the reaction rate between two clusters of sizes $ i,j $ will equal the product of the number of endgroups.
+Together, we can write this formulation as follows:
+\begin{align}
+    kf - 2(k - 1) & = (f - 2) (k + 2) \label{eq:poly_1}                        \\
+    g(i, j)       & = (f - 2)^2 ij + 2(f - 2)(i + j) + 4\, \label{eq:polyprod}
+\end{align}
+
+When $ f=2 $, clearly equation \eqref{eq:polyprod} yields a constant kernel, when $ f \to \infty $, it yields a product kernel, and anywhere in between it is a linear combination of a constant, sum, and product kernel.
+In social phenomena, we can interpret the number $ f $ to indicate \textit{how many social bonds} a person is able to maintain within the social context.
+In 1992, Dunbar used neocortex size and extrapolation from social dynamics observed in other primates to argue that humans can maintain $ 150 $ stable relationships \cite{dunbarNeocortexSizeConstraint1992}.
+We use this number to construct the \textcolor{dunbar}{dunbar} kernel.
+We might also argue that in the context of a large corporation, for example, the number of functional `connections' \textit{homo corporatum} might have with another is practically infinite; we use this argument to construct hte \textcolor{product}{product} kernel.
+In practice, the two are functionally identical.
+For good measure, we throw in the \textcolor{sum}{sum} and \textcolor{constant}{constant} kernels as well.
+Clearly, moving from the constant to sum to product kernels will accelerate the rate of aggregation, all other things being equal.
+
+Next, fragmentation, again drawing inspiration from both prior physics and social phenomena.
+For example, the \textcolor{chipping1}{chipping1} and \textcolor{chipping5}{chipping5} models do exactly what they sounds like: chip away blocks of either one or five masses only.
+The \textcolor{rprod}{rprod} model, on the other hand, is something like `too big to fail': large clusters are unlikely to break apart.
+
+
+
+
+% \cite{krapivskyKineticViewStatistical2010}.
+
+Our logic and equations
+See Table \ref{tab:kernels} and explain how we arrived at dunbar, polyermization, etc.
+
 
 \vspace{0.5em}
 \begin{table}
@@ -141,18 +212,18 @@ Table \ref{tab:kernels}
     \renewcommand{\arraystretch}{1.5}
     \begin{tabular}{ll}
         \toprule
-        \textbf{Name}                         & \textbf{Equation}                                                        \\
+        \textbf{Name}                     & \textbf{Equation}                                                       \\
         \midrule
-        \rowcolor{chipping_1}  Chipping Model & $F_{ij} = \gamma (\delta_{i,1} + \delta_{j,1})$                          \\
-        \rowcolor{chipping_5}  Chipping Model & $F_{ij} = \gamma (\delta_{i,5} + \delta_{j,5})$                          \\
-        \rowcolor{sum}   Sum                  & $F_{ij} = \gamma(i + j)$                                                 \\
-        \rowcolor{product}  Product           & $F_{ij} = \gamma(ij)$                                                    \\
-        \rowcolor{constant}  Constant         & $F_{ij} = \gamma $                                                       \\
-        \rowcolor{r_prod}  Reverse Product    & $F_{ij} = \frac{\gamma}{ij} $                                            \\
-        \rowcolor{dunbar}  Dunbar             & $F_{ij} = \gamma \big(ij + \frac{2(i + j)}{150}  + \frac{4}{150^2}\big)$ \\
+        \rowcolor{chipping1}  Chipping1   & $F_{ij} = \beta (\delta_{i,1} + \delta_{j,1})$                          \\
+        \rowcolor{chipping5}  Chipping5   & $F_{ij} = \beta (\delta_{i,5} + \delta_{j,5})$                          \\
+        \rowcolor{sum}   Sum              & $F_{ij} = \beta(i + j)$                                                 \\
+        \rowcolor{product}  Product       & $F_{ij} = \beta(ij)$                                                    \\
+        \rowcolor{constant}  Constant     & $F_{ij} = \beta $                                                       \\
+        \rowcolor{rprod}  Reverse Product & $F_{ij} = \frac{\beta}{ij} $                                            \\
+        \rowcolor{dunbar}  Dunbar         & $F_{ij} = \beta \big(ij + \frac{2(i + j)}{150}  + \frac{4}{150^2}\big)$ \\
         \bottomrule
     \end{tabular}
-    \caption{Specification of the seven kernels used for aggregation and fragmentation.}
+    \caption{Specification of the seven kernels used for aggregation and fragmentation. Note that all kernels are also used for aggregation by substituting $ \alpha $ for $ \beta $.}
     \label{tab:kernels}
 \end{table}
 
@@ -209,7 +280,7 @@ This discussion can therefore mention scientific consequences of the results, id
 
 \section*{Acknowledgements}
 
-Thanks to Laurent Herbert-Dufresne, VSCI in general, and the authors of \textit{A Kinetic View of Statistical Physics}\cite{krapivskyKineticViewStatistical2010}
+Thanks to Laurent Herbert-Dufresne, VSCI in general, and the authors of \textit{A Kinetic View of Statistical Physics}\cite{krapivskyKineticViewStatistical2010}.
 
 \section*{Additional information}
 
