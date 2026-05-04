@@ -12,3 +12,5 @@ presentation/latex_build
 /Quarto/**/_freeze/
 /.quarto/
 **/*.quarto_ipynb
+figs/figs 
+data/

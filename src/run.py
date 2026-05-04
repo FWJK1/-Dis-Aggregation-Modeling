@@ -145,7 +145,7 @@ def main_loop(
 
     fig_dir = Path("project/figs")
     fig_dir.mkdir(parents=True, exist_ok=True)
-    fig_path = fig_dir / f"HEATPLOT__{initial_cond}-{agg_kernel}-{frg_kernel}-{N}.pdf"
+    fig_path = fig_dir / f"HEATPLOT__{initial_cond}-{agg_kernel}-{frg_kernel}-{N}.png"
     plt.tight_layout()
     plt.savefig(fig_path)
     plt.close("all")

@@ -42,7 +42,6 @@ import matplotlib.cm as cm
 # package global configs
 plt.style.use(["ggplot"])
 save_dir = Path("figs/main")
-palette = sns.color_palette("deep", len(kernels))
 
 ```
 
@@ -60,7 +59,7 @@ IMG_HEIGHT = 6
 ```{python}
 dataDir = Path("data")
 df = None
-taskDir = dataDir / "per_task"
+taskDir = dataDir / "per_task_broad"
 for file in taskDir.iterdir():
     if df is None:
         df = pd.read_csv(file, index_col=False)
@@ -72,9 +71,13 @@ full_df = df.drop_duplicates(keep="first")
 df.columns
 ```
 
+Establish consistent visual identifiers
 ```{python}
-kernels = df['agg_kernel'].unique()
+kernels = df['agg_kernel'].unique().tolist() + df['frg_kernel'].unique().tolist()
+kernels = pd.Series(kernels).unique()
+palette = sns.color_palette("deep", len(kernels))
 GROUP_COLORS = {k: palette[i] for i, k in enumerate(kernels)}
+print(kernels)
 
 ```
 
@@ -87,7 +90,7 @@ GROUP_COLORS = {k: palette[i] for i, k in enumerate(kernels)}
 
 for condition, df in full_df.groupby("init_cond"):
     num_plots = len(df["agg_kernel"].unique())
-    ncols = 4
+    ncols = 3
     nrows = (num_plots + 1) // ncols
 
     fig, axes = plt.subplots(
@@ -105,9 +108,11 @@ for condition, df in full_df.groupby("init_cond"):
     for i, (kernel_name, sub_df) in enumerate(df.groupby("agg_kernel")):
         ax = axes[i]
         ax.set_xlabel(r"$g_{0.6}$")
-        ax.set_ylabel(r"$\dot{s}$")
+        ax.set_ylabel(r"$\dot{\kappa}_s$")
         ax.set_xlim(left=-0.01)
         ax.set_title(rf"$K=${kernel_name}")
+        sub_df["dom60"] += np.random.uniform(-0.03, 0.03, len(sub_df))  ## jitter
+
         sns.scatterplot(
             data=sub_df,
             y="s_slope",
@@ -117,18 +122,24 @@ for condition, df in full_df.groupby("init_cond"):
             palette=GROUP_COLORS,
             size="Aggregation Multiplier",
             style="Fragmentation Multiplier",
-        )
+            legend=i == 0,
 
+        )
     handles, labels = axes[0].get_legend_handles_labels()
+    axes[0].get_legend().remove()
+    fig.legend(handles, labels, loc="lower center", ncol=8, bbox_to_anchor=(0.5, -0.05))
+    plt.subplots_adjust(bottom=0.05)  # make room
     plt.suptitle(condition)
     plt.tight_layout()
+    save_path = save_dir / f"{condition}_all.pdf"
+    plt.savefig(save_path, bbox_inches="tight", backend="pdf")
     plt.show()
 ```
 
 
 
 ```{python}
-key_kernels = ["constant", "sum", "product", "dunbar"]
+key_kernels = ["constant", "sum", "product", "abs"]
 num_plots = len(key_kernels)
 
 ncols = 2
@@ -140,7 +151,8 @@ fig, axes = plt.subplots(
     figsize=(IMG_WIDTH * ncols, IMG_HEIGHT * nrows),
     sharey=True,
 )
-df = full_df[full_df["init_cond"] == "All Monomer"].copy()
+cond = "First 10"
+df = full_df[full_df["init_cond"] == cond].copy()
 df[r"$F$"] = df["frg_kernel"]
 df["Aggregation Multiplier"] = df["agg_multiplier"]
 df["Fragmentation Multiplier"] = df["frg_multiplier"]
@@ -153,7 +165,7 @@ for i, kernel_name in enumerate(key_kernels):
     sub_df = sub_df.copy()
     sub_df["dom60"] += np.random.uniform(-0.03, 0.03, len(sub_df))  ## jitter
     ax.set_xlabel(r"$g_{0.6}$")
-    ax.set_ylabel(r"$\dot{s}$")
+    ax.set_ylabel(r"$\dot{\kappa}_s$")
     ax.set_xlim(left=-0.01)
     ax.set_title(rf"$K=${kernel_name}")
     sns.scatterplot(
@@ -172,7 +184,52 @@ handles, labels = axes[0].get_legend_handles_labels()
 axes[0].get_legend().remove()
 fig.legend(handles, labels, loc="lower center", ncol=8, bbox_to_anchor=(0.5, -0.05))
 plt.subplots_adjust(bottom=0.05)  # make room
-save_path = save_dir / "AllMonomer_costSlope_vs_domination.pdf"
+save_path = save_dir / f"{cond}_costSlope_vs_domination.pdf"
+plt.savefig(save_path, bbox_inches="tight", backend="pdf")
+plt.show()
+```
+
+
+
+
+```{python}
+key_kernels = ["product"]
+
+fig, ax = plt.subplots(
+    figsize=(IMG_WIDTH, IMG_HEIGHT),
+)
+
+# filter
+cond = "First 10"
+df = full_df[full_df["init_cond"] == cond].copy()
+df = df[df["agg_multiplier"] == 1].copy()
+df = df[df["frg_multiplier"] == 0.01].copy()
+
+# rename
+df[r"$F$"] = df["frg_kernel"]
+df["Aggregation Multiplier"] = df["agg_multiplier"]
+df["Fragmentation Multiplier"] = df["frg_multiplier"]
+
+
+for i, kernel_name in enumerate(key_kernels):
+    sub_df = df[df["agg_kernel"] == kernel_name]
+    sub_df = sub_df.copy()
+    sub_df["dom60"] += np.random.uniform(-0.03, 0.03, len(sub_df))  ## jitter
+    ax.set_xlabel(r"$g_{0.6}$")
+    ax.set_ylabel(r"$\dot{\kappa}_s$")
+    ax.set_xlim(left=-0.01)
+    ax.set_title(rf"$K=${kernel_name}")
+    sns.scatterplot(
+        data=sub_df,
+        y="s_slope",
+        x="dom60",
+        ax=ax,
+        hue=r"$F$",
+        palette=GROUP_COLORS,
+        legend=i == 0,
+    )
+plt.subplots_adjust(bottom=0.05)  # make room
+save_path = save_dir / f"{cond}_{kernel_name}_Pareto.pdf"
 plt.savefig(save_path, bbox_inches="tight", backend="pdf")
 plt.show()
 ```

@@ -1,51 +1,48 @@
 \begin{table*}[t]
-\centering
-\caption{Model Card}
-\renewcommand{\arraystretch}{1.25}
+    \centering
+    \caption{Model Card}
+    \renewcommand{\arraystretch}{1.25}
 
-\begin{tabularx}{\textwidth}{
-    >{\raggedright\arraybackslash}p{0.28\textwidth}
-    | 
-    >{\raggedright\arraybackslash}X
-}
+    \begin{tabularx}{\textwidth}{
+        >{\raggedright\arraybackslash}p{0.28\textwidth}
+        |
+        >{\raggedright\arraybackslash}X
+        }
 
-\multicolumn{2}{l}{\textbf{1. Model Details}} \\[2pt]
-The problem & \\
-Modeling approach & \\
-Degrees of freedom & \\
-Number of parameters & \\
-Implementation language & \\
-Relevant publications & \\
-License & \\
-Contact information & \\[6pt]
+        \multicolumn{2}{l}{\textbf{1. Model Details}}                                                                        \\[2pt]
+        The problem                       & Calculating rate of fragmentation at steady state of fragmenting system.         \\
+        Modeling approach                 & Ordinary Differential Equations, inspired by, but not quite, Master Equations    \\
+        Degrees of freedom                & $ M-1 $, with $ M $ the mass in number of monomers.                              \\
+        Number of parameters              & 7: $ \alpha, \beta, K, F, M, T, \vec{c}(0)$                                      \\
+        Implementation language           & Python                                                                           \\
+        % Relevant publications             &                                                                               \\
+        % License                           &                                                                               \\ None
+        Contact information               & Fitz Koch: fw.j.keenan.koch@gmail.com                                            \\ [6pt]
 
-\multicolumn{2}{l}{\textbf{2. Intended Use}} \\[2pt]
-Primary intended uses & \\
-If forecasting, validation metrics & \\
-If applicable, data incorporated & \\
-Primary users & \\
-Out-of-scope uses & \\[6pt]
+        \multicolumn{2}{l}{\textbf{2. Intended Use}}                                                                         \\[2pt]
+        Primary intended uses             & Determining the `cost' of a (Dis)Aggregating system at steady state              \\
+        Primary users                     & Applied modelers of competing aggregation and fragmentation                      \\
+        Out-of-scope uses                 & Prediction and forecasting on more complicated real world scenarios.             \\[6pt]
 
-\multicolumn{2}{l}{\textbf{3. Key assumptions}} \\[2pt]
-Population size & \\
-Contact structure & \\
-Time structure and memory effects & \\
-Other & \\[6pt]
+        \multicolumn{2}{l}{\textbf{3. Key assumptions}}                                                                      \\[2pt]
+        Population size                   & Parameterized, but here 100                                                      \\
+        Contact structure                 & Mean-field                                                                       \\
+        Time structure and memory effects & Continuous time                                                                  \\
+        % Other                             &                                                                                  \\[6pt]
 
-\multicolumn{2}{l}{\textbf{4. Metrics}} \\[2pt]
-Computational complexity & \\
-Variation approaches & \\[6pt]
+        \multicolumn{2}{l}{\textbf{4. Metrics}}                                                                              \\[2pt]
+        Computational complexity          & $ \mathcal{O}(M^2) $                                                             \\
+        % Variation approaches              &                                                                                  \\[6pt]
 
-\multicolumn{2}{l}{\textbf{8. Ethical Considerations}} \\[2pt]
-Potential risks and harms & \\
-Bias and fairness concerns & \\
-Mitigation strategies & \\
-Impact on stakeholders & \\[6pt]
+        % \multicolumn{2}{l}{\textbf{8. Ethical Considerations}}                                                               \\[2pt]
+        % Potential risks and harms         &                                                                                  \\
+        % Bias and fairness concerns        &                                                                                  \\
+        % Mitigation strategies             &                                                                                  \\
+        % Impact on stakeholders            &                                                                                  \\[6pt]
 
-\multicolumn{2}{l}{\textbf{9. Suggested next steps}} \\[2pt]
-Issues with implementations & \\
-Recommendations for use & \\
-Future work & \\
-
-\end{tabularx}
+        \multicolumn{2}{l}{\textbf{5. Suggested next steps}}                                                                 \\[2pt]
+        Issues with implementations       & None noticed                                                                     \\
+        Recommendations for use           & Specify kernels of interest and search over variety of values.                   \\
+        Future work                       & Compare mean-field values with full consideration of stochastic Master Equations \\
+    \end{tabularx}
 \end{table*}

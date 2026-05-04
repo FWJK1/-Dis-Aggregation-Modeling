@@ -14,8 +14,13 @@
 \definecolor{sum}{rgb}{0.33,0.66,0.41}
 \definecolor{constant}{rgb}{0.77,0.31,0.32}
 \definecolor{dunbar}{rgb}{0.51,0.45,0.70}
-\definecolor{chipping1}{rgb}{0.58,0.47,0.38}
-\definecolor{chipping5}{rgb}{0.85,0.55,0.76}
+\definecolor{abs}{rgb}{0.58,0.47,0.38}
+\definecolor{chipping1}{rgb}{0.85,0.55,0.76}
+\definecolor{chipping5}{rgb}{0.55,0.55,0.55}
+\definecolor{tiered33}{rgb}{0.80,0.73,0.45}
+\definecolor{tiered50}{rgb}{0.39,0.71,0.80}
+\definecolor{tiered60}{rgb}{0.30,0.45,0.69}
+
 
 \title{Steady State Cost in Competing Aggregation-Fragmentation Dynamics}
 
@@ -91,15 +96,7 @@ Aggregation is generally the transition
 $$
     c_{i} + c_{j} \xrightarrow[]{K_{ij}} c_{i+j}
 $$
-where:
-\begin{itemize}
-    \item $ M $ is the total amount of mass divided by the size of the smallest cluster (which is  $ 1 $).
-    \item $c$ is a cluster
-    \item $i$ and $j$ are masses, or sizes
-    \item $K_{ij}$ is the rate of aggregation between clusters of mass $i$ and mass $j$ into a clusters of mass $i +j$
-    \item $K$, then, is a symmetric matrix $K_{ij}=K_{j i}$ of dimensions $ M \times M $
-    \item The clusters $ \vec{c} $ are all well-mixed and come into `aggregation radius' with a rate determined solely by their quantity.
-\end{itemize}
+where $c_i$ denotes a cluster of mass $i$, $K_{ij} = K_{ji}$ is the symmetric $M \times M$ aggregation rate matrix between clusters of mass $i$ and $j$, and $N$ is the total mass normalized to the monomer size. The clusters $ \vec{c} $  are assumed well-mixed, so encounter rates depend only on cluster quantities.
 
 Then the continuous ordinary differential equation for all cluster sizes $ c_k $ is the sum of aggregation rates producing a cluster size and the rate of aggregation reducing the amount of a cluster size, with each weighted by the current amount of the relevant clusters:
 \begin{align}
@@ -132,8 +129,8 @@ Putting equations \eqref{eq:ag_main} and \eqref{eq:frg_main} together and scalin
 
 
 Using equation \eqref{eq:ag_frg} as our basis, we let $ T = 100  $ be the total time the integrator runs, and $ M = 100 $ be the total amount of mass, which is conserved across all steps.
-Note that in calculations we use a normalized representation of mass $ N=1$, so the initial choice of $ M $ affects only the speed of our calculation and the resolution of our results; in other words, $ M $  is effectually the number of discrete `buckets' of cluster sizes.
-Higher $ M $  produces slower, but more granular, integrations.
+Note that in our calculations we use a normalized representation of mass $ N=1$, so the initial choice of $ M $ affects only the speed of our calculation and the resolution of our results; in other words, $ M $  is effectually the number of discrete `buckets' of cluster sizes.
+The system has a complexity of $ \mathcal{O}(M^2) $: higher $ M $  produces significantly slower, but more granular, integrations.
 With this formalization in place, we use the \verb|scipy| Python package to integrate the differential equation and thus calculate the time evolution of the system.
 From this time evolution we are able to easily calculate the earliest time index $ s $  at which the state of the system ceases to change and thus reaches a steady state.
 
@@ -166,11 +163,28 @@ To calculate some $ g_{x} $ in practice, we take the distribution of clusters at
 Throughout, we report generally on $ g_{0.6} $, the proportion of mass in clusters greater than $ .6M $, though $ g_{0.8} $ is calculated as well.
 
 
+\begin{figure}
+    \centering
+    \includegraphics[width=.7\textwidth]{figs/main/First 10_product_Pareto.pdf}
+    \caption{ Pseudo-Pareto front for the \textcolor{product}{Product} kernel with all $ \alpha=1 $ and $ \beta=.01 $  }
+    \label{fig:paretoProd}
+\end{figure}
+
+\subsubsection*{Initial Conditions}
+We define three initial conditions $ \vec{c}_0 $: \textbf{All Monomer}, \textbf{Di\_Monomer}, and \textbf{First 10}, where the mass is initially evenly split between the cluster sizes in the condition title.
+Letting $ k $ be the total number of cluster sizes we want, to ensure that the mass sums to one we write this as:
+\begin{align}
+    c_x(0) = \frac{1}{xk} \quad \forall x \le k
+\end{align}
+
+Regardless of the initial condition used, the integration runs in the same fashion and calculates the same values as outlined above.
+
 \subsubsection*{Kernels}
 
 Recall that the only requirement for our kernels $ K $  and $ F $ is that they are symmetric.
 It is then easy to see that there is an infinite set of kernels, even without our scaling rates $ \alpha $ and $ \beta $; consider, for example, $ (i+j)^p \ \forall p \in \mathbb{R}$.
 For this reason, we use kernels drawn from a combination of physics literature and inspiration from social phenomena.
+The equation for all kernels is available in Table \ref{tab:kernels}.
 
 First, aggregation.
 Consider our clusters as polymer chains consisting of $ k $ monomers, each with all monomers having the same amount of $ f $-functional reactive endgroups.
@@ -192,16 +206,14 @@ For good measure, we throw in the \textcolor{sum}{sum} and \textcolor{constant}{
 Clearly, moving from the constant to sum to product kernels will accelerate the rate of aggregation, all other things being equal.
 
 Next, fragmentation, again drawing inspiration from both prior physics and social phenomena.
-For example, the \textcolor{chipping1}{chipping1} and \textcolor{chipping5}{chipping5} models do exactly what they sounds like: chip away blocks of either one or five masses only.
-The \textcolor{rprod}{rprod} model, on the other hand, is something like `too big to fail': large clusters are unlikely to break apart.
+For example, the \textcolor{chipping1}{chipping1} and \textcolor{chipping5}{chipping5} kernels do exactly what they sounds like: chip away blocks of either one or five masses only.
+This is a common behavior in chemical polymers, where only the ends of the chain are available for reaction.
+The tiered and \textcolor{abs}{Absolute Difference } kernels are drawn from theories of financial regulation.
+The tiered kernel splits apart clusters at twice the product rate provided they are over a certain threshold.
+This represents a regulatory body attempting to allow for smaller clusters while preventing larger ones; it is parameterized as $ \theta M $ and test on three separate theta values.
+The \textcolor{abs}{Absolute Difference} kerenl, on the other hand, prioritizes splitting groups evenly.
+Finally, the \textcolor{rprod}{rprod} kernel is the the reverse: the larger the cluster, the less likely the fragmentation, producing something like `too big to fail'.
 
-
-
-
-% \cite{krapivskyKineticViewStatistical2010}.
-
-Our logic and equations
-See Table \ref{tab:kernels} and explain how we arrived at dunbar, polyermization, etc.
 
 
 \vspace{0.5em}
@@ -212,18 +224,20 @@ See Table \ref{tab:kernels} and explain how we arrived at dunbar, polyermization
     \renewcommand{\arraystretch}{1.5}
     \begin{tabular}{ll}
         \toprule
-        \textbf{Name}                     & \textbf{Equation}                                                       \\
+        \textbf{Name}                      & \textbf{Equation}                                                                                                                                                 \\
         \midrule
-        \rowcolor{chipping1}  Chipping1   & $F_{ij} = \beta (\delta_{i,1} + \delta_{j,1})$                          \\
-        \rowcolor{chipping5}  Chipping5   & $F_{ij} = \beta (\delta_{i,5} + \delta_{j,5})$                          \\
-        \rowcolor{sum}   Sum              & $F_{ij} = \beta(i + j)$                                                 \\
-        \rowcolor{product}  Product       & $F_{ij} = \beta(ij)$                                                    \\
-        \rowcolor{constant}  Constant     & $F_{ij} = \beta $                                                       \\
-        \rowcolor{rprod}  Reverse Product & $F_{ij} = \frac{\beta}{ij} $                                            \\
-        \rowcolor{dunbar}  Dunbar         & $F_{ij} = \beta \big(ij + \frac{2(i + j)}{150}  + \frac{4}{150^2}\big)$ \\
+        \rowcolor{chipping1}  Chipping1    & $F_{ij} = \beta (\delta_{i,1} + \delta_{j,1})$                                                                                                                    \\
+        \rowcolor{chipping5}  Chipping5    & $F_{ij} = \beta (\delta_{i,5} + \delta_{j,5})$                                                                                                                    \\
+        \rowcolor{sum}   Sum               & $F_{ij} = \beta(i + j)$                                                                                                                                           \\
+        \rowcolor{product}  Product        & $F_{ij} = \beta(ij)$                                                                                                                                              \\
+        \rowcolor{constant}  Constant      & $F_{ij} = \beta $                                                                                                                                                 \\
+        \rowcolor{rprod}  Reverse Product  & $F_{ij} = \frac{\beta}{ij} $                                                                                                                                      \\
+        \rowcolor{dunbar}  Dunbar          & $F_{ij} = \beta \big(ij + \frac{2(i + j)}{150}  + \frac{4}{150^2}\big)$                                                                                           \\
+        \rowcolor{abs} Absolute Difference & $F_{ij} = \beta \lvert i - j \rvert $.                                                                                                                            \\
+        Tiered                             & $ F_{ij} = 2 \beta ij * 1[(i + j) > \theta M]$ with \textcolor{tiered33}{$\theta=.33$},  \textcolor{tiered50}{$\theta=.5$}, and \textcolor{tiered60}{$\theta=.6$} \\
         \bottomrule
     \end{tabular}
-    \caption{Specification of the seven kernels used for aggregation and fragmentation. Note that all kernels are also used for aggregation by substituting $ \alpha $ for $ \beta $.}
+    \caption{Specification of the nine kernels used for aggregation and fragmentation. Note that all kernels are also used for aggregation by substituting $ \alpha $ for $ \beta $.}
     \label{tab:kernels}
 \end{table}
 
@@ -234,39 +248,31 @@ See Table \ref{tab:kernels} and explain how we arrived at dunbar, polyermization
 %Comment out if the model card is not useful
 \input{model-card}
 
-\subsubsection*{Third-level section}
 
 
-% Topical subheadings are allowed so feel free to change the \texttt{subsection} or \texttt{subsubsection} titles. This is an example of a \texttt{subsubsection}.
 
 %%% Results section %%%%
 \section{Results\label{sec:results}}
+Figure \ref{fig:FullSlope} in the Appendix shows the comparison plots between $ \dot{\kappa}_s $ and $ g_{0.6} $ for all aggregation kernels.
+However, \textcolor{abs}{Absolute Difference } and \textcolor{rprod}{Reverse Product} are uninteresting, while \textcolor{dunbar}{Dunbar} and \textcolor{product}{Product} are functionally identical.
+Figure \ref{fig:costSlopeAll} therefore drills down into a subset of four kernels with the most activity.
+In all but the  \textcolor{product}{Product}  aggregation kernel, the steady state cost is almost zero across all steady states, and the fragmentary kernel dictates only how strong the dominating mass will be.
+Through, all three, the Tiered kernels perform the best, regardless of $ \theta $ value, and the two chipping kernels the worst.
 
-The results can contain subheadings as desired and can discuss the results directly.
 
-% Example of a figure
-\begin{figure}[ht]
+In the \textcolor{product}{Product} aggregation kernel, however, we see a different story.
+Strong tradeoffs between $ \dot{\kappa}_s $ and $ g_{0.6} $, most clearly when $ \alpha = 1 $ and $ \beta = .01 $.
+Figure .... examines this apparent Pareto front more closely.
+In other words, a Pareto front of dual optimization emerges most clearly \textit{when the fragmentary kernel is overwhelmed}.
+Note that we show only the \textbf{All Monomer} initial conditions, since the other initial conditions we tested were functionally identical.
+
+\begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{stream}
-    \caption{Legend (350 words max). Example legend text for an example figure. Figures should be in pdf format unless it is a photo or archival image not in vector graphics, as is the case here (in which case jpg and png are acceptable).}
-    \label{fig:stream}
+    \includegraphics[width=\textwidth]{figs/main/First 10_costSlope_vs_domination.pdf}
+    \caption{Comparison for four most interesting aggregation kernels with initial condition \textbf{First 10}. The size of the node indicates $ \alpha $, while the shape of the node indicates $ \beta $. Unsurprisingly, larger values of $ \alpha $ and smaller values of $ \beta $  generally produce higher values of our two optimizing variables. }
+    \label{fig:costSlopeAll}
 \end{figure}
 
-
-\begin{table}[]
-    \centering
-    \begin{tabular}{|l|l|l|}
-        \hline
-        Condition & n  & p    \\
-        \hline
-        A         & 5  & 0.1  \\
-        \hline
-        B         & 10 & 0.01 \\
-        \hline
-    \end{tabular}
-    \caption{\label{tab:example}Legend (350 words max). Example legend text for an example table.}
-    \label{tab:example}
-\end{table}
 % Example of a table
 
 
@@ -289,4 +295,14 @@ Thanks to Laurent Herbert-Dufresne, VSCI in general, and the authors of \textit{
 % \textbf{Competing interests:} if any.
 
 \bibliography{/home/fitsl/library/zotero/fjk_library.bib}
+
+\pagebreak
+\section{Appendix}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figs/main/All Monomer_all.pdf}
+    \caption{Cost comparison plot for all six aggregation kernels. \textcolor{abs}{Absolute Difference } and \textcolor{rprod}{Reverse Product} are uninteresting, while \textcolor{dunbar}{Dunbar} and \textcolor{product}{Product} are functionally the same.}
+    \label{fig:FullSlope}
+\end{figure}
 \end{document}
